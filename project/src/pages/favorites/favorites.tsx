@@ -1,4 +1,4 @@
-function Favorites() {
+function Favorites(): JSX.Element {
   return (
     <>
       <div style={{display: 'none'}}>

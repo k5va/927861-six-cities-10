@@ -1,4 +1,4 @@
-function Room() {
+function Room(): JSX.Element {
   return (
     <>
       <div style={{display: 'none'}}>
