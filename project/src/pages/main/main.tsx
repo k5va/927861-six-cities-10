@@ -1,6 +1,10 @@
 import {PlaceCard} from '../../components';
 
-function Main(): JSX.Element {
+type MainProps = {
+  placesCount: number;
+}
+
+function Main({placesCount}: MainProps): JSX.Element {
   return (
     <>
       <div style={{display: 'none'}}>
@@ -106,11 +110,7 @@ function Main(): JSX.Element {
                   </ul>
                 </form>
                 <div className="cities__places-list places__list tabs__content">
-                  <PlaceCard />
-                  <PlaceCard />
-                  <PlaceCard />
-                  <PlaceCard />
-                  <PlaceCard />
+                  {Array.from({length: placesCount}, () => <PlaceCard />)}
                 </div>
               </section>
               <div className="cities__right-section">
