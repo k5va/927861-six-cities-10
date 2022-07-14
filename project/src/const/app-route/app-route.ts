@@ -1,9 +1,9 @@
 enum AppRoute {
-  ROOT = '/',
-  LOGIN = '/login',
-  FAVORITES = '/favorites',
-  ROOM = '/offer/:id',
-  NOT_FOUND = '*',
+  Root = '/',
+  Login = '/login',
+  Favorites = '/favorites',
+  Room = '/offer/:id',
+  NotFound = '*',
 }
 
 export default AppRoute;

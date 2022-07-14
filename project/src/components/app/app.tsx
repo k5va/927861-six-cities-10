@@ -1,17 +1,33 @@
 import {AppProps} from './types';
 import {Favorites, Login, Main, NotFound, Room} from '../../pages';
 import {BrowserRouter, Route, Routes} from 'react-router-dom';
-import {AppRoute} from '../../const';
+import {AppRoute, AuthStatus} from '../../const';
+import {PrivateRoute} from '../../components';
 
 function App({placesCount}: AppProps): JSX.Element {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path={AppRoute.ROOT} element={<Main placesCount={placesCount}/>} />
-        <Route path={AppRoute.LOGIN} element={<Login/>} />
-        <Route path={AppRoute.FAVORITES} element={<Favorites/>} />
-        <Route path={AppRoute.ROOM} element={<Room/>} />
-        <Route path={AppRoute.NOT_FOUND} element={<NotFound/>} />
+        <Route
+          path={AppRoute.Root}
+          element={<Main placesCount={placesCount}/>}
+        />
+        <Route
+          path={AppRoute.Login}
+          element={<Login/>}
+        />
+        <Route
+          path={AppRoute.Favorites}
+          element={<PrivateRoute authStatus={AuthStatus.NoAuth}><Favorites/></PrivateRoute>}
+        />
+        <Route
+          path={AppRoute.Room}
+          element={<Room/>}
+        />
+        <Route
+          path={AppRoute.NotFound}
+          element={<NotFound/>}
+        />
       </Routes>
     </BrowserRouter>
   );
