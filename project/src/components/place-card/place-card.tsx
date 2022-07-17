@@ -1,10 +1,10 @@
 import {PlaceCardProps} from './types';
 
-function PlaceCard({offer}: PlaceCardProps): JSX.Element {
+function PlaceCard({offer, onMouseOver}: PlaceCardProps): JSX.Element {
   const {isPremium, previewImage, title, price, description, type} = offer;
 
   return (
-    <article className="cities__card place-card">
+    <article className="cities__card place-card" onMouseOver={() => onMouseOver(offer)}>
       {
         isPremium ?
           <div className="place-card__mark">
