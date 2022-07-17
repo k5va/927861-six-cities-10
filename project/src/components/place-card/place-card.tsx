@@ -1,10 +1,14 @@
 import {PlaceCardProps} from './types';
 
-function PlaceCard({offer, onMouseOver}: PlaceCardProps): JSX.Element {
-  const {isPremium, previewImage, title, price, description, type} = offer;
+function PlaceCard({offer, isFavoriteMode, onMouseOver}: PlaceCardProps): JSX.Element {
+  const {isPremium, previewImage, title, price, type} = offer;
+  const mode = isFavoriteMode ? 'favorites' : 'cities';
 
   return (
-    <article className="cities__card place-card" onMouseOver={() => onMouseOver(offer)}>
+    <article
+      className={`${mode}__card place-card`}
+      onMouseOver={() => onMouseOver?.(offer)}
+    >
       {
         isPremium ?
           <div className="place-card__mark">
@@ -12,12 +16,12 @@ function PlaceCard({offer, onMouseOver}: PlaceCardProps): JSX.Element {
           </div> :
           null
       }
-      <div className="cities__image-wrapper place-card__image-wrapper">
+      <div className={`${mode}__image-wrapper place-card__image-wrapper`}>
         <a href="/">
           <img className="place-card__image" src={previewImage} width="260" height="200" alt={title} />
         </a>
       </div>
-      <div className="place-card__info">
+      <div className={`${mode}__card-info place-card__info`}>
         <div className="place-card__price-wrapper">
           <div className="place-card__price">
             <b className="place-card__price-value">&euro;{price}</b>
@@ -37,7 +41,7 @@ function PlaceCard({offer, onMouseOver}: PlaceCardProps): JSX.Element {
           </div>
         </div>
         <h2 className="place-card__name">
-          <a href="/">{description}</a>
+          <a href="/">{title}</a>
         </h2>
         <p className="place-card__type">{type}</p>
       </div>
