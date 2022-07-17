@@ -4,13 +4,13 @@ import {BrowserRouter, Route, Routes} from 'react-router-dom';
 import {AppRoute, AuthStatus} from '../../const';
 import {PrivateRoute} from '../../components';
 
-function App({placesCount}: AppProps): JSX.Element {
+function App({offers}: AppProps): JSX.Element {
   return (
     <BrowserRouter>
       <Routes>
         <Route
           path={AppRoute.Root}
-          element={<Main placesCount={placesCount}/>}
+          element={<Main offers={offers}/>}
         />
         <Route
           path={AppRoute.Login}

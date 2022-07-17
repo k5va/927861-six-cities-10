@@ -1,5 +1,7 @@
+import {Offer} from '../../types';
+
 type MainProps = {
-  placesCount: number;
+  offers: Offer[];
 }
 
 export type {MainProps};

@@ -1,7 +1,7 @@
 import {MainProps} from './types';
 import {PlaceCard} from '../../components';
 
-function Main({placesCount}: MainProps): JSX.Element {
+function Main({offers}: MainProps): JSX.Element {
   return (
     <>
       <div style={{display: 'none'}}>
@@ -107,7 +107,7 @@ function Main({placesCount}: MainProps): JSX.Element {
                   </ul>
                 </form>
                 <div className="cities__places-list places__list tabs__content">
-                  {Array.from({length: placesCount}, () => <PlaceCard />)}
+                  {offers.map((offer) => <PlaceCard key={offer.id} offer={offer} />)}
                 </div>
               </section>
               <div className="cities__right-section">
