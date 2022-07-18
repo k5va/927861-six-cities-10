@@ -1,7 +1,7 @@
 import {Offer} from '../../types';
 
-type MainProps = {
+type FavoritesProps = {
   offers: Offer[];
 }
 
-export type {MainProps};
+export type {FavoritesProps};
