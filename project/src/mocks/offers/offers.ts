@@ -1,3 +1,4 @@
+import {OfferType} from '../../const';
 import {Offer} from '../../types';
 
 const json = `[
@@ -225,39 +226,46 @@ const json = `[
     "id": 4
   }]`;
 
-function createOffer(raw: any): Offer {
+type JSONValue = { [key: string]: number | boolean | string | string[] | JSONValue };
+
+function createOffer(raw: JSONValue): Offer {
+  const city: JSONValue = raw['city'] as JSONValue;
+  const cityLocation: JSONValue = city['location'] as JSONValue;
+  const host: JSONValue = raw['host'] as JSONValue;
+  const location: JSONValue = raw['location'] as JSONValue;
+
   return {
-    id: Number(raw['id']),
+    id: raw['id'] as number,
     city: {
-      name: raw['city']['name'],
+      name: city['name'] as string,
       location: {
-        longitude: Number(raw['city']['location']['longitude']),
-        latitude: Number(raw['city']['location']['latitude']),
-        zoom: Number(raw['city']['location']['zoom']),
+        longitude: cityLocation['longitude'] as number,
+        latitude: cityLocation['latitude'] as number,
+        zoom: cityLocation['zoom'] as number,
       },
     },
-    previewImage: raw['previewImage'],
-    images: raw['images'],
-    title: raw['title'],
-    isFavorite: Boolean(raw['isFavorite']),
-    isPremium: Boolean(raw['isPremium']),
-    rating: Number(raw['rating']),
-    type: raw['type'],
-    bedrooms: Number(raw['bedrooms']),
-    maxAdults: Number(raw['maxAdults']),
-    price: Number(raw['price']),
-    goods: raw['goods'],
+    previewImage: raw['previewImage'] as string,
+    images: raw['images'] as string[],
+    title: raw['title'] as string,
+    isFavorite: raw['isFavorite'] as boolean,
+    isPremium: raw['isPremium'] as boolean,
+    rating: raw['rating'] as number,
+    type: raw['type'] as OfferType,
+    bedrooms: raw['bedrooms'] as number,
+    maxAdults: raw['maxAdults'] as number,
+    price: raw['price'] as number,
+    goods: raw['goods'] as string[],
     host: {
-      id: Number(raw['host']['id']),
-      name: raw['host']['name'],
-      isPro: Boolean(raw['host']['isPro']),
-      avatarUrl: raw['host']['avatarUrl'],
+      id: host['id'] as number,
+      name: host['name'] as string,
+      isPro: host['isPro'] as boolean,
+      avatarUrl: host['avatarUrl'] as string,
     },
-    description: raw['description'],
+    description: raw['description'] as string,
     location: {
-      longitude: Number(raw['location']['longitude']),
-      latitude: Number(raw['location']['latitude']),
-      zoom: Number(raw['location']['zoom']),
+      longitude: location['longitude'] as number,
+      latitude: location['latitude'] as number,
+      zoom: location['zoom'] as number,
     },
   };
 }
