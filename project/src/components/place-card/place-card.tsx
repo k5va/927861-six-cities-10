@@ -1,8 +1,8 @@
+import {Link} from 'react-router-dom';
 import {PlaceCardProps} from './types';
 
-function PlaceCard({offer, isFavoriteMode, onMouseOver}: PlaceCardProps): JSX.Element {
+function PlaceCard({offer, mode, onMouseOver}: PlaceCardProps): JSX.Element {
   const {isPremium, previewImage, title, price, type} = offer;
-  const mode = isFavoriteMode ? 'favorites' : 'cities';
 
   return (
     <article
@@ -41,7 +41,7 @@ function PlaceCard({offer, isFavoriteMode, onMouseOver}: PlaceCardProps): JSX.El
           </div>
         </div>
         <h2 className="place-card__name">
-          <a href="/">{title}</a>
+          <Link to={`/offer/${offer.id}`}>{title}</Link>
         </h2>
         <p className="place-card__type">{type}</p>
       </div>

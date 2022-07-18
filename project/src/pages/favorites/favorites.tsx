@@ -1,4 +1,5 @@
 import {PlaceCard} from '../../components';
+import {PlaceCardMode} from '../../const';
 import {Offer} from '../../types';
 import {FavoritesProps} from './types';
 
@@ -67,7 +68,7 @@ function Favorites({offers}: FavoritesProps): JSX.Element {
                           offersCityMap[city]
                             .map(
                               (offer) =>
-                                <PlaceCard key={offer.id} offer={offer} isFavoriteMode />
+                                <PlaceCard key={offer.id} offer={offer} mode={PlaceCardMode.Favorites} />
                             )
                         }
                       </div>
