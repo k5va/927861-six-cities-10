@@ -55,11 +55,11 @@
   },
   {
     "city": {
-      "name": "Paris",
+      "name": "Amsterdam",
       "location": {
-        "latitude": 48.85661,
-        "longitude": 2.351499,
-        "zoom": 13
+        "latitude": 52.37454,
+        "longitude": 4.897976,
+        "zoom": 12
       }
     },
     "previewImage": "https://10.react.pages.academy/static/hotel/19.jpg",
@@ -107,11 +107,11 @@
   },
   {
     "city": {
-      "name": "Hamburg",
+      "name": "Amsterdam",
       "location": {
-        "latitude": 53.550341,
-        "longitude": 10.000654,
-        "zoom": 13
+        "latitude": 52.37454,
+        "longitude": 4.897976,
+        "zoom": 12
       }
     },
     "previewImage": "https://10.react.pages.academy/static/hotel/6.jpg",
@@ -165,11 +165,11 @@
   },
   {
     "city": {
-      "name": "Cologne",
+      "name": "Amsterdam",
       "location": {
-        "latitude": 50.938361,
-        "longitude": 6.959974,
-        "zoom": 13
+        "latitude": 52.37454,
+        "longitude": 4.897976,
+        "zoom": 12
       }
     },
     "previewImage": "https://10.react.pages.academy/static/hotel/4.jpg",

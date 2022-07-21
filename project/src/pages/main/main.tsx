@@ -13,7 +13,7 @@ function Main({offers}: MainProps): JSX.Element {
         <Header />
         <main className="page__main page__main--index">
           <h1 className="visually-hidden">Cities</h1>
-          <CitiesList cities={cities} />
+          <CitiesList />
           <CityOffers city={cities[0]} offers={offers}/>
         </main>
       </div>

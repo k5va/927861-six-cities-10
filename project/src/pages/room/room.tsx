@@ -7,6 +7,7 @@ import {Header, Map, OffersList, ReviewsForm, SVGSymbols} from '../../components
 function Room({offers}: RoomProps): JSX.Element {
   const params = useParams();
   const offer = offers.find(({id}) => id === Number(params.id));
+  const nearOffers = offers.slice(1, 4); // TODO: temporary!
 
   if (!offer) {
     return <NotFound />;
@@ -128,13 +129,18 @@ function Room({offers}: RoomProps): JSX.Element {
                 </section>
               </div>
             </div>
-            <Map city={offer.city} offers={offers} selectedOffer={offers[0]} mode={'property'} />
+            <Map
+              city={offer.city}
+              offers={[offer, ...nearOffers]}
+              selectedOffer={offer}
+              mode={'property'}
+            />
           </section>
           <div className="container">
             <section className="near-places places">
               <h2 className="near-places__title">Other places in the neighbourhood</h2>
               <div className="near-places__list places__list">
-                <OffersList offers={offers} mode={PlaceCardMode.Near}/>
+                <OffersList offers={nearOffers} mode={PlaceCardMode.Near} />
               </div>
             </section>
           </div>
