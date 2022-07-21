@@ -1,7 +1,15 @@
 import {MainProps} from './types';
-import {Header, OffersList, SVGSymbols} from '../../components';
+import {Header, OffersList, SVGSymbols, Map} from '../../components';
+import {useState} from 'react';
+import {Offer} from '../../types';
 
 function Main({offers}: MainProps): JSX.Element {
+  const [selectedOffer, setSelectedOffer] = useState<Offer | undefined>(undefined);
+
+  const onOfferHover = (offer: Offer) => {
+    setSelectedOffer(offer);
+  };
+
   return (
     <>
       <SVGSymbols />
@@ -65,10 +73,10 @@ function Main({offers}: MainProps): JSX.Element {
                     <li className="places__option" tabIndex={0}>Top rated first</li>
                   </ul>
                 </form>
-                <OffersList offers={offers} />
+                <OffersList offers={offers} onOfferHover={onOfferHover}/>
               </section>
               <div className="cities__right-section">
-                <section className="cities__map map"></section>
+                <Map city={offers[0].city.location} offers={offers} selectedOffer={selectedOffer} />
               </div>
             </div>
           </div>

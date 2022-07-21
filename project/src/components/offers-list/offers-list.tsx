@@ -4,10 +4,13 @@ import {PlaceCardMode} from '../../const';
 import {Offer} from '../../types';
 import {OffersListProps} from './types';
 
-function OffersList({offers}: OffersListProps): JSX.Element {
+function OffersList({offers, onOfferHover}: OffersListProps): JSX.Element {
   const [, setActiveOffer] = useState<null | Offer>(null);
 
-  const onMouseOver = (offer: Offer) => setActiveOffer(offer);
+  const onMouseOver = (offer: Offer) => {
+    setActiveOffer(offer); // TODO: Why save to state?
+    onOfferHover(offer);
+  };
 
   return (
     <div className="cities__places-list places__list tabs__content">
