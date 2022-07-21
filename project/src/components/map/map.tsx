@@ -1,14 +1,8 @@
 import {useRef, useEffect} from 'react';
 import {Icon, Marker} from 'leaflet';
 import {useMap} from '../../hooks';
-import {Location, Offer} from '../../types';
 import 'leaflet/dist/leaflet.css';
-
-type MapProps = {
-  city: Location;
-  offers: Offer[];
-  selectedOffer: Offer | undefined;
-};
+import {MapProps} from './types';
 
 const defaultCustomIcon = new Icon({
   iconUrl: 'img/pin.svg',
@@ -32,13 +26,10 @@ function Map(props: MapProps): JSX.Element {
           lng: offer.location.longitude
         });
 
-        marker
-          .setIcon(
-            selectedOffer !== undefined && offer.id === selectedOffer.id
-              ? currentCustomIcon
-              : defaultCustomIcon
-          )
-          .addTo(map);
+        marker.setIcon(
+          selectedOffer !== undefined && offer.id === selectedOffer.id ?
+            currentCustomIcon : defaultCustomIcon
+        ).addTo(map);
       });
     }
   }, [map, offers, selectedOffer]);
