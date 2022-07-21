@@ -1,11 +1,11 @@
 import {OffersList, Map} from '../../components';
-import {useRef} from 'react';
 import {Offer} from '../../types';
 import {CityOfferProps} from './types';
 import {PlaceCardMode} from '../../const';
+import {useState} from 'react';
 
 function CityOffers({city, offers}: CityOfferProps) {
-  const activeOffer = useRef<Offer | undefined>(undefined);
+  const [activeOffer, setActiveOffer] = useState<Offer | null>(null);
 
   return (
     <div className="cities">
@@ -32,12 +32,12 @@ function CityOffers({city, offers}: CityOfferProps) {
             <OffersList
               offers={offers}
               mode={PlaceCardMode.Cities}
-              onActiveOfferChange={(offer) => {activeOffer.current = offer;}}
+              onActiveOfferChange={setActiveOffer}
             />
           </div>
         </section>
         <div className="cities__right-section">
-          <Map city={city} offers={offers} selectedOffer={activeOffer.current} mode={'cities'} />
+          <Map city={city} offers={offers} selectedOffer={activeOffer} mode={'cities'} />
         </div>
       </div>
     </div>

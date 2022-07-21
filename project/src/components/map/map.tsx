@@ -25,7 +25,7 @@ function Map({city, offers, selectedOffer, mode}: MapProps): JSX.Element {
         });
 
         marker.setIcon(
-          selectedOffer !== undefined && offer.id === selectedOffer.id ?
+          selectedOffer !== null && offer.id === selectedOffer.id ?
             currentCustomIcon : defaultCustomIcon
         ).addTo(map);
       });
