@@ -1,5 +1,6 @@
-import {Header, PlaceCard, SVGSymbols} from '../../components';
+import {Header, OffersList, SVGSymbols} from '../../components';
 import {PlaceCardMode} from '../../const';
+import {Offer} from '../../types';
 import {createOffersCityMap} from '../../utils';
 import {FavoritesProps} from './types';
 
@@ -9,7 +10,6 @@ function Favorites({offers}: FavoritesProps): JSX.Element {
   return (
     <>
       <SVGSymbols />
-
       <div className="page">
         <Header />
         <main className="page__main page__main--favorites">
@@ -29,10 +29,11 @@ function Favorites({offers}: FavoritesProps): JSX.Element {
                       </div>
                       <div className="favorites__places">
                         {
-                          offersCityMap.get(city)?.map(
-                            (offer) =>
-                              <PlaceCard key={offer.id} offer={offer} mode={PlaceCardMode.Favorites} />
-                          )
+                          offersCityMap.has(city) &&
+                            <OffersList
+                              offers={offersCityMap.get(city) as Offer[]}
+                              mode={PlaceCardMode.Favorites}
+                            />
                         }
                       </div>
                     </li>

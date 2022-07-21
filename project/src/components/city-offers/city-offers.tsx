@@ -2,13 +2,10 @@ import {OffersList, Map} from '../../components';
 import {useState} from 'react';
 import {Offer} from '../../types';
 import {CityOfferProps} from './types';
+import {PlaceCardMode} from '../../const';
 
 function CityOffers({city, offers}: CityOfferProps) {
-  const [selectedOffer, setSelectedOffer] = useState<Offer | undefined>(undefined);
-
-  const onOfferHover = (offer: Offer) => {
-    setSelectedOffer(offer);
-  };
+  const [activeOffer, setActiveOffer] = useState<Offer | undefined>(undefined);
 
   return (
     <div className="cities">
@@ -31,10 +28,16 @@ function CityOffers({city, offers}: CityOfferProps) {
               <li className="places__option" tabIndex={0}>Top rated first</li>
             </ul>
           </form>
-          <OffersList offers={offers} onOfferHover={onOfferHover}/>
+          <div className="cities__places-list places__list tabs__content">
+            <OffersList
+              offers={offers}
+              mode={PlaceCardMode.Cities}
+              onActiveOfferChange={setActiveOffer}
+            />
+          </div>
         </section>
         <div className="cities__right-section">
-          <Map city={city} offers={offers} selectedOffer={selectedOffer} mode={'cities'} />
+          <Map city={city} offers={offers} selectedOffer={activeOffer} mode={'cities'} />
         </div>
       </div>
     </div>

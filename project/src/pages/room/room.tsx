@@ -2,7 +2,7 @@ import {RoomProps} from './types';
 import {useParams} from 'react-router-dom';
 import {PlaceCardMode} from '../../const';
 import {NotFound} from '../../pages';
-import {Header, Map, PlaceCard, ReviewsForm, SVGSymbols} from '../../components';
+import {Header, Map, OffersList, ReviewsForm, SVGSymbols} from '../../components';
 
 function Room({offers}: RoomProps): JSX.Element {
   const params = useParams();
@@ -134,11 +134,7 @@ function Room({offers}: RoomProps): JSX.Element {
             <section className="near-places places">
               <h2 className="near-places__title">Other places in the neighbourhood</h2>
               <div className="near-places__list places__list">
-                {
-                  offers.map((nearOffer) =>
-                    <PlaceCard key={nearOffer.id} offer={nearOffer} mode={PlaceCardMode.Near}/>
-                  )
-                }
+                <OffersList offers={offers} mode={PlaceCardMode.Near}/>
               </div>
             </section>
           </div>
