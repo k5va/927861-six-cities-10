@@ -12,11 +12,9 @@ const currentCustomIcon = new Icon({
   iconUrl: 'img/pin-active.svg',
 });
 
-function Map(props: MapProps): JSX.Element {
-  const {city, offers, selectedOffer} = props;
-
+function Map({city, offers, selectedOffer}: MapProps): JSX.Element {
   const mapRef = useRef(null);
-  const map = useMap(mapRef, city);
+  const map = useMap(mapRef, city.location);
 
   useEffect(() => {
     if (map) {

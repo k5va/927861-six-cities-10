@@ -6,3 +6,5 @@ export {default as SVGSymbols} from './svg-symbols/svg-symbols';
 export {default as Header} from './header/header';
 export {default as ReviewsForm} from './reviews-form/reviews-form';
 export {default as Map} from './map/map';
+export {default as CitiesList} from './cities-list/cities-list';
+export {default as CityOffers} from './city-offers/city-offers';

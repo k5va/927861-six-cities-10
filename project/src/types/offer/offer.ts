@@ -1,12 +1,9 @@
-import {Location} from '../../types';
+import {Location, City} from '../../types';
 import {OfferType} from '../../const';
 
 type Offer = {
   id: number;
-  city: {
-    name: string;
-    location: Location;
-  };
+  city: City;
   previewImage: string;
   images: string[];
   title: string;

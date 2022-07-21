@@ -1,7 +1,7 @@
-import {Location, Offer} from '../../types';
+import {City, Offer} from '../../types';
 
 type MapProps = {
-  city: Location;
+  city: City;
   offers: Offer[];
   selectedOffer: Offer | undefined;
 };
