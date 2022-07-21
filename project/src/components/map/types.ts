@@ -4,6 +4,7 @@ type MapProps = {
   city: City;
   offers: Offer[];
   selectedOffer: Offer | undefined;
+  mode: string;
 };
 
 export type {MapProps};

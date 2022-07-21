@@ -34,7 +34,7 @@ function CityOffers({city, offers}: CityOfferProps) {
           <OffersList offers={offers} onOfferHover={onOfferHover}/>
         </section>
         <div className="cities__right-section">
-          <Map city={city} offers={offers} selectedOffer={selectedOffer} />
+          <Map city={city} offers={offers} selectedOffer={selectedOffer} mode={'cities'} />
         </div>
       </div>
     </div>

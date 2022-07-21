@@ -12,7 +12,7 @@ const currentCustomIcon = new Icon({
   iconUrl: 'img/pin-active.svg',
 });
 
-function Map({city, offers, selectedOffer}: MapProps): JSX.Element {
+function Map({city, offers, selectedOffer, mode}: MapProps): JSX.Element {
   const mapRef = useRef(null);
   const map = useMap(mapRef, city.location);
 
@@ -32,7 +32,7 @@ function Map({city, offers, selectedOffer}: MapProps): JSX.Element {
     }
   }, [map, offers, selectedOffer]);
 
-  return <section ref={mapRef} className="cities__map map"></section>;
+  return <section ref={mapRef} className={`${mode}__map map`}></section>;
 }
 
 export default Map;

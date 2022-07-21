@@ -2,7 +2,7 @@ import {RoomProps} from './types';
 import {useParams} from 'react-router-dom';
 import {PlaceCardMode} from '../../const';
 import {NotFound} from '../../pages';
-import {Header, PlaceCard, ReviewsForm, SVGSymbols} from '../../components';
+import {Header, Map, PlaceCard, ReviewsForm, SVGSymbols} from '../../components';
 
 function Room({offers}: RoomProps): JSX.Element {
   const params = useParams();
@@ -128,7 +128,7 @@ function Room({offers}: RoomProps): JSX.Element {
                 </section>
               </div>
             </div>
-            <section className="property__map map"></section>
+            <Map city={offer.city} offers={offers} selectedOffer={offers[0]} mode={'property'} />
           </section>
           <div className="container">
             <section className="near-places places">
