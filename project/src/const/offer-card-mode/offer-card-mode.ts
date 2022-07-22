@@ -1,7 +1,7 @@
-enum PlaceCardMode {
+enum OfferCardMode {
   Cities = 'cities',
   Favorites = 'favorites',
   Near = 'near-places',
 }
 
-export default PlaceCardMode;
+export default OfferCardMode;

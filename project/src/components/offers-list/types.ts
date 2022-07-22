@@ -1,9 +1,9 @@
-import {PlaceCardMode} from '../../const';
+import {OfferCardMode} from '../../const';
 import {Offer} from '../../types';
 
 type OffersListProps = {
   offers: Offer[];
-  mode: PlaceCardMode;
+  mode: OfferCardMode;
   onActiveOfferChange?: (offer: Offer) => void;
 }
 

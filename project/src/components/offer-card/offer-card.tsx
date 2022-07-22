@@ -1,7 +1,7 @@
 import {Link} from 'react-router-dom';
 import {PlaceCardProps} from './types';
 
-function PlaceCard({offer, mode, onMouseOver}: PlaceCardProps): JSX.Element {
+function OfferCard({offer, mode, onMouseOver}: PlaceCardProps): JSX.Element {
   const {isPremium, previewImage, title, price, type} = offer;
 
   return (
@@ -48,4 +48,4 @@ function PlaceCard({offer, mode, onMouseOver}: PlaceCardProps): JSX.Element {
   );
 }
 
-export default PlaceCard;
+export default OfferCard;
