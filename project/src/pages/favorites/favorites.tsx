@@ -1,5 +1,5 @@
 import {Header, OffersList, SVGSymbols} from '../../components';
-import {PlaceCardMode} from '../../const';
+import {OfferCardMode} from '../../const';
 import {Offer} from '../../types';
 import {createOffersCityMap} from '../../utils';
 import {FavoritesProps} from './types';
@@ -32,7 +32,7 @@ function Favorites({offers}: FavoritesProps): JSX.Element {
                           offersCityMap.has(city) &&
                             <OffersList
                               offers={offersCityMap.get(city) as Offer[]}
-                              mode={PlaceCardMode.Favorites}
+                              mode={OfferCardMode.Favorites}
                             />
                         }
                       </div>

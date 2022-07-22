@@ -1,9 +1,9 @@
-import {PlaceCardMode} from '../../const';
+import {OfferCardMode} from '../../const';
 import {Offer} from '../../types';
 
 type PlaceCardProps = {
   offer: Offer;
-  mode: PlaceCardMode;
+  mode: OfferCardMode;
   onMouseOver?: (offer: Offer) => void;
 }
 

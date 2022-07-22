@@ -1,5 +1,5 @@
 export {default as App} from './app/app';
-export {default as PlaceCard} from './place-card/place-card';
+export {default as OfferCard} from './offer-card/offer-card';
 export {default as PrivateRoute} from './private-route/private-route';
 export {default as OffersList} from './offers-list/offers-list';
 export {default as SVGSymbols} from './svg-symbols/svg-symbols';
@@ -8,3 +8,6 @@ export {default as ReviewsForm} from './reviews-form/reviews-form';
 export {default as Map} from './map/map';
 export {default as CitiesList} from './cities-list/cities-list';
 export {default as CityOffers} from './city-offers/city-offers';
+export {default as ReviewsList} from './reviews-list/reviews-list';
+export {default as ReviewCard} from './review-card/review-card';
+export {default as Rating} from './rating/rating';

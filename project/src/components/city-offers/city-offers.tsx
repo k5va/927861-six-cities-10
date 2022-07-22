@@ -1,10 +1,10 @@
 import {OffersList, Map} from '../../components';
 import {Offer} from '../../types';
 import {CityOfferProps} from './types';
-import {PlaceCardMode} from '../../const';
+import {OfferCardMode} from '../../const';
 import {useState} from 'react';
 
-function CityOffers({city, offers}: CityOfferProps) {
+function CityOffers({city, offers}: CityOfferProps): JSX.Element {
   const [activeOffer, setActiveOffer] = useState<Offer | null>(null);
 
   return (
@@ -31,7 +31,7 @@ function CityOffers({city, offers}: CityOfferProps) {
           <div className="cities__places-list places__list tabs__content">
             <OffersList
               offers={offers}
-              mode={PlaceCardMode.Cities}
+              mode={OfferCardMode.Cities}
               onActiveOfferChange={setActiveOffer}
             />
           </div>

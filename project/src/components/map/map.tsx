@@ -4,11 +4,11 @@ import {useMap} from '../../hooks';
 import 'leaflet/dist/leaflet.css';
 import {MapProps} from './types';
 
-const defaultCustomIcon = new Icon({
+const DEFAULT_CUSTOM_ICON = new Icon({
   iconUrl: 'img/pin.svg',
 });
 
-const currentCustomIcon = new Icon({
+const CURRENT_CUSTOM_ICON = new Icon({
   iconUrl: 'img/pin-active.svg',
 });
 
@@ -26,7 +26,7 @@ function Map({city, offers, selectedOffer, mode}: MapProps): JSX.Element {
 
         marker.setIcon(
           selectedOffer !== null && offer.id === selectedOffer.id ?
-            currentCustomIcon : defaultCustomIcon
+            CURRENT_CUSTOM_ICON : DEFAULT_CUSTOM_ICON
         ).addTo(map);
       });
     }
