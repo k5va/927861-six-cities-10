@@ -1,21 +1,15 @@
-import {Header, PlaceCard, SVGSymbols} from '../../components';
+import {Header, OffersList, SVGSymbols} from '../../components';
 import {PlaceCardMode} from '../../const';
 import {Offer} from '../../types';
+import {createOffersCityMap} from '../../utils';
 import {FavoritesProps} from './types';
 
 function Favorites({offers}: FavoritesProps): JSX.Element {
-  const offersCityMap: {[key: string]: Offer[]} = {};
-
-  offers.forEach((offer) => {
-    offersCityMap[offer.city.name] = offersCityMap[offer.city.name] ?
-      [...offersCityMap[offer.city.name], offer] :
-      [offer];
-  });
+  const offersCityMap = createOffersCityMap(offers);
 
   return (
     <>
       <SVGSymbols />
-
       <div className="page">
         <Header />
         <main className="page__main page__main--favorites">
@@ -24,22 +18,22 @@ function Favorites({offers}: FavoritesProps): JSX.Element {
               <h1 className="favorites__title">Saved listing</h1>
               <ul className="favorites__list">
                 {
-                  Object.keys(offersCityMap).map((city) => (
-                    <li key={city} className="favorites__locations-items">
+                  [...offersCityMap.keys()].map((city) => (
+                    <li key={city.name} className="favorites__locations-items">
                       <div className="favorites__locations locations locations--current">
                         <div className="locations__item">
                           <a className="locations__item-link" href="/">
-                            <span>{city}</span>
+                            <span>{city.name}</span>
                           </a>
                         </div>
                       </div>
                       <div className="favorites__places">
                         {
-                          offersCityMap[city]
-                            .map(
-                              (offer) =>
-                                <PlaceCard key={offer.id} offer={offer} mode={PlaceCardMode.Favorites} />
-                            )
+                          offersCityMap.has(city) &&
+                            <OffersList
+                              offers={offersCityMap.get(city) as Offer[]}
+                              mode={PlaceCardMode.Favorites}
+                            />
                         }
                       </div>
                     </li>

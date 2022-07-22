@@ -12,7 +12,7 @@ function ReviewsForm() {
     <form className="reviews__form form" action="#" method="post">
       <label className="reviews__label form__label" htmlFor="review">Your review</label>
       <div className="reviews__rating-form form__rating">
-        {Array.from(ReviewRate.entries()).map(([title, rate]) => (
+        {[...ReviewRate.entries()].map(([title, rate]) => (
           <React.Fragment key={rate}>
             <input
               onChange={onRateChange}

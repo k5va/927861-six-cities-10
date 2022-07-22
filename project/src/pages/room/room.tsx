@@ -2,11 +2,12 @@ import {RoomProps} from './types';
 import {useParams} from 'react-router-dom';
 import {PlaceCardMode} from '../../const';
 import {NotFound} from '../../pages';
-import {Header, PlaceCard, ReviewsForm, SVGSymbols} from '../../components';
+import {Header, Map, OffersList, ReviewsForm, SVGSymbols} from '../../components';
 
 function Room({offers}: RoomProps): JSX.Element {
   const params = useParams();
   const offer = offers.find(({id}) => id === Number(params.id));
+  const nearOffers = offers.slice(1, 4); // TODO: temporary!
 
   if (!offer) {
     return <NotFound />;
@@ -128,17 +129,18 @@ function Room({offers}: RoomProps): JSX.Element {
                 </section>
               </div>
             </div>
-            <section className="property__map map"></section>
+            <Map
+              city={offer.city}
+              offers={[offer, ...nearOffers]}
+              selectedOffer={offer}
+              mode={'property'}
+            />
           </section>
           <div className="container">
             <section className="near-places places">
               <h2 className="near-places__title">Other places in the neighbourhood</h2>
               <div className="near-places__list places__list">
-                {
-                  offers.map((nearOffer) =>
-                    <PlaceCard key={nearOffer.id} offer={nearOffer} mode={PlaceCardMode.Near}/>
-                  )
-                }
+                <OffersList offers={nearOffers} mode={PlaceCardMode.Near} />
               </div>
             </section>
           </div>

@@ -10,11 +10,10 @@ function PlaceCard({offer, mode, onMouseOver}: PlaceCardProps): JSX.Element {
       onMouseOver={() => onMouseOver?.(offer)}
     >
       {
-        isPremium ?
+        isPremium &&
           <div className="place-card__mark">
             <span>Premium</span>
-          </div> :
-          null
+          </div>
       }
       <div className={`${mode}__image-wrapper place-card__image-wrapper`}>
         <a href="/">
