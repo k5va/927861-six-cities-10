@@ -1,7 +1,7 @@
 import {reviews} from '../../mocks';
 import {ReviewCard} from '../../components';
 
-function ReviewsList() {
+function ReviewsList(): JSX.Element {
   return (
     <>
       <h2 className="reviews__title">

@@ -1,7 +1,7 @@
 import {useState} from 'react';
 import {Cities} from '../../const';
 
-function CitiesList() {
+function CitiesList(): JSX.Element {
   const cities = Object.values(Cities);
   const [activeCity, setActiveCity] = useState(Cities.Amsterdam);
 

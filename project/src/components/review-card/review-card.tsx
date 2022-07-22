@@ -1,6 +1,6 @@
 import {ReviewCardProps} from './types';
 
-function ReviewCard({review}: ReviewCardProps) {
+function ReviewCard({review}: ReviewCardProps): JSX.Element {
   const {user, comment} = review;
   const {avatarUrl, name} = user;
 

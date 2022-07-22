@@ -1,7 +1,7 @@
 import React, {ChangeEvent, useState} from 'react';
 import {ReviewRate} from '../../const';
 
-function ReviewsForm() {
+function ReviewsForm(): JSX.Element {
   const [text, setText] = useState('');
   const [currentRate, setRate] = useState(ReviewRate.get('terribly'));
 

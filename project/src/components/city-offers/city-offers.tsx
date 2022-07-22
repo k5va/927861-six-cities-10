@@ -4,7 +4,7 @@ import {CityOfferProps} from './types';
 import {OfferCardMode} from '../../const';
 import {useState} from 'react';
 
-function CityOffers({city, offers}: CityOfferProps) {
+function CityOffers({city, offers}: CityOfferProps): JSX.Element {
   const [activeOffer, setActiveOffer] = useState<Offer | null>(null);
 
   return (
