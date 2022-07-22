@@ -10,3 +10,4 @@ export {default as CitiesList} from './cities-list/cities-list';
 export {default as CityOffers} from './city-offers/city-offers';
 export {default as ReviewsList} from './reviews-list/reviews-list';
 export {default as ReviewCard} from './review-card/review-card';
+export {default as Rating} from './rating/rating';

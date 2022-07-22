@@ -2,7 +2,8 @@ import {RoomProps} from './types';
 import {useParams} from 'react-router-dom';
 import {OfferCardMode} from '../../const';
 import {NotFound} from '../../pages';
-import {Header, Map, OffersList, ReviewsForm, ReviewsList, SVGSymbols} from '../../components';
+import {Header, Map, OffersList, ReviewsForm,
+  ReviewsList, SVGSymbols, Rating} from '../../components';
 
 function Room({offers}: RoomProps): JSX.Element {
   const params = useParams();
@@ -53,8 +54,7 @@ function Room({offers}: RoomProps): JSX.Element {
                 </div>
                 <div className="property__rating rating">
                   <div className="property__stars rating__stars">
-                    <span style={{width: '80%'}}></span>
-                    <span className="visually-hidden">Rating</span>
+                    <Rating rate={offer.rating} />
                   </div>
                   <span className="property__rating-value rating__value">{rating}</span>
                 </div>

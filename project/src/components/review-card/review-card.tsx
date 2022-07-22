@@ -1,7 +1,8 @@
+import {Rating} from '../../components';
 import {ReviewCardProps} from './types';
 
 function ReviewCard({review}: ReviewCardProps): JSX.Element {
-  const {user, comment} = review;
+  const {user, comment, rating} = review;
   const {avatarUrl, name} = user;
 
   return (
@@ -15,8 +16,7 @@ function ReviewCard({review}: ReviewCardProps): JSX.Element {
       <div className="reviews__info">
         <div className="reviews__rating rating">
           <div className="reviews__stars rating__stars">
-            <span style={{width: '80%'}}></span>
-            <span className="visually-hidden">Rating</span>
+            <Rating rate={rating} />
           </div>
         </div>
         <p className="reviews__text">{comment}</p>

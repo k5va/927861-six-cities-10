@@ -1,8 +1,9 @@
 import {Link} from 'react-router-dom';
+import {Rating} from '../../components';
 import {PlaceCardProps} from './types';
 
 function OfferCard({offer, mode, onMouseOver}: PlaceCardProps): JSX.Element {
-  const {isPremium, previewImage, title, price, type} = offer;
+  const {isPremium, previewImage, title, price, type, rating} = offer;
 
   return (
     <article
@@ -35,8 +36,7 @@ function OfferCard({offer, mode, onMouseOver}: PlaceCardProps): JSX.Element {
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span style={{width: '80%'}}></span>
-            <span className="visually-hidden">Rating</span>
+            <Rating rate={rating} />
           </div>
         </div>
         <h2 className="place-card__name">
