@@ -10,5 +10,17 @@
     "rating": 4,
     "comment": "We loved it so much, the house, the veiw, the location just great.. Highly reccomend :)",
     "date": "2022-06-13T12:25:36.938Z"
+  },
+  {
+    "id": 2,
+    "user": {
+      "id": 12,
+      "isPro": true,
+      "name": "Isaac",
+      "avatarUrl": "https://10.react.pages.academy/static/avatar/3.jpg"
+    },
+    "rating": 5,
+    "comment": "Nice! :)",
+    "date": "2022-06-14T12:20:36.938Z"
   }
 ]
