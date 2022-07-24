@@ -1,9 +1,12 @@
-import {useState} from 'react';
 import {Cities} from '../../const';
+import {useAppDispatch, useAppSelector} from '../../hooks';
+import {setCity} from '../../store/actions';
 
 function CitiesList(): JSX.Element {
+  const dispatch = useAppDispatch();
+  const {city: activeCity} = useAppSelector((state) => state);
+
   const cities = Object.values(Cities);
-  const [activeCity, setActiveCity] = useState(Cities.Amsterdam);
 
   return (
     <div className="tabs">
@@ -17,7 +20,7 @@ function CitiesList(): JSX.Element {
                 href="/"
                 onClick={(evt) => {
                   evt.preventDefault();
-                  setActiveCity(city);
+                  dispatch(setCity({city}));
                 }}
               >
                 <span>{city}</span>
