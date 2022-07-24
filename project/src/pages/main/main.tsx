@@ -1,8 +1,9 @@
-import {MainProps} from './types';
 import {Header, SVGSymbols, CitiesList, CityOffers} from '../../components';
+import {useAppSelector} from '../../hooks';
 import {createOffersCityMap} from '../../utils';
 
-function Main({offers}: MainProps): JSX.Element {
+function Main(): JSX.Element {
+  const {offers} = useAppSelector((state) => state);
   const offersCityMap = createOffersCityMap(offers);
   const cities = [...offersCityMap.keys()];
 

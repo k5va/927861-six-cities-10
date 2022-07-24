@@ -1,10 +1,11 @@
 import {Header, OffersList, SVGSymbols} from '../../components';
 import {OfferCardMode} from '../../const';
+import {useAppSelector} from '../../hooks';
 import {Offer} from '../../types';
 import {createOffersCityMap} from '../../utils';
-import {FavoritesProps} from './types';
 
-function Favorites({offers}: FavoritesProps): JSX.Element {
+function Favorites(): JSX.Element {
+  const {offers} = useAppSelector((state) => state);
   const offersCityMap = createOffersCityMap(offers);
 
   return (
