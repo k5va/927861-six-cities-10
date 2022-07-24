@@ -4,8 +4,9 @@ import {CityOfferProps} from './types';
 import {OfferCardMode} from '../../const';
 import {useState} from 'react';
 
-function CityOffers({city, offers}: CityOfferProps): JSX.Element {
+function CityOffers({offers}: CityOfferProps): JSX.Element {
   const [activeOffer, setActiveOffer] = useState<Offer | null>(null);
+  const city = offers[0].city;
 
   return (
     <div className="cities">
