@@ -1,5 +1,5 @@
 import {useRef, useEffect} from 'react';
-import {Icon, Marker} from 'leaflet';
+import {Icon, LayerGroup, Marker} from 'leaflet';
 import {useMap} from '../../hooks';
 import 'leaflet/dist/leaflet.css';
 import {MapProps} from './types';
@@ -14,9 +14,11 @@ const CURRENT_CUSTOM_ICON = new Icon({
 
 function Map({city, offers, selectedOffer, mode}: MapProps): JSX.Element {
   const mapRef = useRef(null);
+  const layerGroupRef = useRef(new LayerGroup());
   const map = useMap(mapRef, city.location);
 
   useEffect(() => {
+    const layerGroup = layerGroupRef.current;
     if (map) {
       offers.forEach((offer) => {
         const marker = new Marker({
@@ -27,9 +29,13 @@ function Map({city, offers, selectedOffer, mode}: MapProps): JSX.Element {
         marker.setIcon(
           selectedOffer !== null && offer.id === selectedOffer.id ?
             CURRENT_CUSTOM_ICON : DEFAULT_CUSTOM_ICON
-        ).addTo(map);
+        ).addTo(layerGroup);
       });
+      map.addLayer(layerGroup);
     }
+    return () => {
+      layerGroup.clearLayers();
+    };
   }, [map, offers, selectedOffer]);
 
   return <section ref={mapRef} className={`${mode}__map map`}></section>;
