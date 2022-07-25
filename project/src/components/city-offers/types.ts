@@ -1,7 +1,6 @@
-import {City, Offer} from '../../types';
+import {Offer} from '../../types';
 
 type CityOfferProps = {
-  city: City;
   offers: Offer[];
 }
 

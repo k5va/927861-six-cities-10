@@ -1,11 +1,12 @@
-import {RoomProps} from './types';
 import {useParams} from 'react-router-dom';
 import {OfferCardMode} from '../../const';
 import {NotFound} from '../../pages';
 import {Header, Map, OffersList, ReviewsForm,
   ReviewsList, SVGSymbols, Rating} from '../../components';
+import {useAppSelector} from '../../hooks';
 
-function Room({offers}: RoomProps): JSX.Element {
+function Room(): JSX.Element {
+  const {offers} = useAppSelector((state) => state);
   const params = useParams();
   const offer = offers.find(({id}) => id === Number(params.id));
   const nearOffers = offers.slice(1, 4); // TODO: temporary!

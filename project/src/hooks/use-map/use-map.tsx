@@ -1,21 +1,15 @@
-import {useEffect, useState, useRef, MutableRefObject} from 'react';
+import {useEffect, useState, MutableRefObject, useRef} from 'react';
 import {Map, TileLayer} from 'leaflet';
 import {Location} from '../../types';
 
 function useMap(mapRef: MutableRefObject<HTMLElement | null>, location: Location): Map | null {
   const [map, setMap] = useState<Map | null>(null);
-  const isRenderedRef = useRef<boolean>(false);
+  const isRenderedRef = useRef(false);
 
+  // Effect for initializing map
   useEffect(() => {
-    if (mapRef.current !== null && !isRenderedRef.current) {
-      const mapInstance = new Map(mapRef.current, {
-        center: {
-          lat: location.latitude,
-          lng: location.longitude
-        },
-        zoom: location.zoom
-      });
-
+    if (!isRenderedRef.current && mapRef.current) {
+      const mapInstance = new Map(mapRef.current);
       const layer = new TileLayer(
         'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png',
         {
@@ -28,7 +22,13 @@ function useMap(mapRef: MutableRefObject<HTMLElement | null>, location: Location
       setMap(mapInstance);
       isRenderedRef.current = true;
     }
-  }, [mapRef, location]);
+  }, [mapRef]);
+
+  // Effect for changing map's location
+  useEffect(() => {
+    const {latitude, longitude, zoom} = location;
+    map?.setView({lat: latitude, lng: longitude}, zoom);
+  }, [location, map]);
 
   return map;
 }

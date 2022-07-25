@@ -1,10 +1,10 @@
-import {MainProps} from './types';
 import {Header, SVGSymbols, CitiesList, CityOffers} from '../../components';
-import {createOffersCityMap} from '../../utils';
+import {useAppSelector} from '../../hooks';
+import {findCityOffers} from '../../utils';
 
-function Main({offers}: MainProps): JSX.Element {
-  const offersCityMap = createOffersCityMap(offers);
-  const cities = [...offersCityMap.keys()];
+function Main(): JSX.Element {
+  const {offers, city} = useAppSelector((state) => state);
+  const cityOffers = findCityOffers(city, offers);
 
   return (
     <>
@@ -14,7 +14,7 @@ function Main({offers}: MainProps): JSX.Element {
         <main className="page__main page__main--index">
           <h1 className="visually-hidden">Cities</h1>
           <CitiesList />
-          <CityOffers city={cities[0]} offers={offers}/>
+          <CityOffers offers={cityOffers}/>
         </main>
       </div>
     </>
