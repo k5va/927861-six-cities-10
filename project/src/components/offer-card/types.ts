@@ -1,10 +1,10 @@
 import {OfferCardMode} from '../../const';
 import {Offer} from '../../types';
 
-type PlaceCardProps = {
+type OfferCardProps = {
   offer: Offer;
   mode: OfferCardMode;
-  onMouseOver?: (offer: Offer) => void;
+  onSelected?: (isSelected: boolean, offer: Offer) => void;
 }
 
-export type {PlaceCardProps};
+export type {OfferCardProps};

@@ -1,14 +1,15 @@
 import {Link} from 'react-router-dom';
 import {Rating} from '../../components';
-import {PlaceCardProps} from './types';
+import {OfferCardProps} from './types';
 
-function OfferCard({offer, mode, onMouseOver}: PlaceCardProps): JSX.Element {
+function OfferCard({offer, mode, onSelected}: OfferCardProps): JSX.Element {
   const {isPremium, previewImage, title, price, type, rating} = offer;
 
   return (
     <article
       className={`${mode}__card place-card`}
-      onMouseOver={() => onMouseOver?.(offer)}
+      onMouseOver={() => onSelected?.(true, offer)}
+      onMouseLeave={() => onSelected?.(false, offer)}
     >
       {
         isPremium &&

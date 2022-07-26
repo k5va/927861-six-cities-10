@@ -33,7 +33,7 @@ function CityOffers({offers}: CityOfferProps): JSX.Element {
             <OffersList
               offers={offers}
               mode={OfferCardMode.Cities}
-              onActiveOfferChange={setActiveOffer}
+              onActiveOfferChange={(isActive, offer) => setActiveOffer(isActive ? offer : null)}
             />
           </div>
         </section>
