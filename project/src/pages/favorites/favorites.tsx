@@ -19,20 +19,20 @@ function Favorites(): JSX.Element {
               <h1 className="favorites__title">Saved listing</h1>
               <ul className="favorites__list">
                 {
-                  [...offersCityMap.keys()].map((city) => (
-                    <li key={city.name} className="favorites__locations-items">
+                  [...offersCityMap.keys()].map((cityName) => (
+                    <li key={cityName} className="favorites__locations-items">
                       <div className="favorites__locations locations locations--current">
                         <div className="locations__item">
                           <a className="locations__item-link" href="/">
-                            <span>{city.name}</span>
+                            <span>{cityName}</span>
                           </a>
                         </div>
                       </div>
                       <div className="favorites__places">
                         {
-                          offersCityMap.has(city) &&
+                          offersCityMap.has(cityName) &&
                             <OffersList
-                              offers={offersCityMap.get(city) as Offer[]}
+                              offers={offersCityMap.get(cityName) as Offer[]}
                               mode={OfferCardMode.Favorites}
                             />
                         }

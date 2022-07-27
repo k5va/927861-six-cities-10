@@ -1,18 +1,18 @@
-import {City, Offer} from '../../types';
+import {Offer} from '../../types';
 
 /**
  * Creates offer-city map from array of offers
  * @param {Offer[]} offers - array of offers
- * @returns {Map<City, Offer[]>} offers city map
+ * @returns {Map<string, Offer[]>} offers city map
  */
-const createOffersCityMap = (offers: Offer[]): Map<City, Offer[]> => {
-  const offersCityMap: Map<City, Offer[]> = new Map();
+const createOffersCityMap = (offers: Offer[]): Map<string, Offer[]> => {
+  const offersCityMap: Map<string, Offer[]> = new Map();
 
   offers.forEach((offer) => {
-    if (offersCityMap.has(offer.city)) {
-      offersCityMap.get(offer.city)?.push(offer);
+    if (offersCityMap.has(offer.city.name)) {
+      offersCityMap.get(offer.city.name)?.push(offer);
     } else {
-      offersCityMap.set(offer.city, [offer]);
+      offersCityMap.set(offer.city.name, [offer]);
     }
   });
 

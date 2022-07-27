@@ -17,6 +17,7 @@ function Map({city, offers, selectedOffer, mode}: MapProps): JSX.Element {
   const layerGroupRef = useRef(new LayerGroup());
   const map = useMap(mapRef, city.location);
 
+  //effect for rendering offers
   useEffect(() => {
     const layerGroup = layerGroupRef.current;
     if (map) {
@@ -33,7 +34,7 @@ function Map({city, offers, selectedOffer, mode}: MapProps): JSX.Element {
       });
       map.addLayer(layerGroup);
     }
-    return () => {
+    return () => { // effect clean up
       layerGroup.clearLayers();
     };
   }, [map, offers, selectedOffer]);
