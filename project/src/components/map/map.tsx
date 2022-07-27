@@ -1,4 +1,4 @@
-import {useRef, useEffect} from 'react';
+import {useRef, useEffect, memo} from 'react';
 import {Icon, LayerGroup, Marker} from 'leaflet';
 import {useMap} from '../../hooks';
 import 'leaflet/dist/leaflet.css';
@@ -41,4 +41,4 @@ function Map({city, offers, selectedOffer, mode}: MapProps): JSX.Element {
   return <section ref={mapRef} className={`${mode}__map map`}></section>;
 }
 
-export default Map;
+export default memo(Map);
