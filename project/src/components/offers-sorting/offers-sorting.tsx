@@ -1,8 +1,8 @@
 import {useState} from 'react';
 import {OffersSortingType} from '../../const';
+import {OffersSortingProps} from './types';
 
-function OffersSorting() {
-  const [activeSorting, setActiveSorting] = useState(OffersSortingType.Popular);
+function OffersSorting({sorting, onSortingChange}: OffersSortingProps): JSX.Element {
   const [isOpened, setIsOpened] = useState(false);
 
   return (
@@ -13,7 +13,7 @@ function OffersSorting() {
         className="places__sorting-type"
         tabIndex={0}
       >
-        {activeSorting}
+        {sorting}
         <svg className="places__sorting-arrow" width="7" height="4">
           <use xlinkHref="#icon-arrow-select"></use>
         </svg>
@@ -24,20 +24,20 @@ function OffersSorting() {
             'places__options--opened' : ''}`
         }
       >
-        {Object.values(OffersSortingType).map((sorting) => (
+        {Object.values(OffersSortingType).map((item) => (
           <li
-            key={sorting}
+            key={item}
             onClick={() => {
-              setActiveSorting(sorting);
               setIsOpened(false);
+              onSortingChange(item);
             }}
             className={
-              `places__option ${sorting === activeSorting ?
+              `places__option ${item === sorting ?
                 'places__option--active' : ''}`
             }
             tabIndex={0}
           >
-            {sorting}
+            {item}
           </li>
         ))}
       </ul>
