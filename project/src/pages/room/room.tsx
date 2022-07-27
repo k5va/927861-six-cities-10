@@ -95,9 +95,6 @@ function Room(): JSX.Element {
                   </div>
                   <div className="property__description">
                     <p className="property__text">{description}</p>
-                    <p className="property__text">
-                      An independent House, strategically located between Rembrand Square and National Opera, but where the bustle of the city comes to rest in this alley flowery and colorful.
-                    </p>
                   </div>
                 </div>
                 <section className="property__reviews reviews">

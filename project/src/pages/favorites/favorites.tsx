@@ -1,5 +1,6 @@
+import {Link} from 'react-router-dom';
 import {Header, OffersList, SVGSymbols} from '../../components';
-import {OfferCardMode} from '../../const';
+import {AppRoute, OfferCardMode} from '../../const';
 import {useAppSelector} from '../../hooks';
 import {Offer} from '../../types';
 import {createOffersCityMap} from '../../utils';
@@ -19,20 +20,20 @@ function Favorites(): JSX.Element {
               <h1 className="favorites__title">Saved listing</h1>
               <ul className="favorites__list">
                 {
-                  [...offersCityMap.keys()].map((city) => (
-                    <li key={city.name} className="favorites__locations-items">
+                  [...offersCityMap.keys()].map((cityName) => (
+                    <li key={cityName} className="favorites__locations-items">
                       <div className="favorites__locations locations locations--current">
                         <div className="locations__item">
-                          <a className="locations__item-link" href="/">
-                            <span>{city.name}</span>
-                          </a>
+                          <Link to={AppRoute.Root} className="locations__item-link">
+                            <span>{cityName}</span>
+                          </Link>
                         </div>
                       </div>
                       <div className="favorites__places">
                         {
-                          offersCityMap.has(city) &&
+                          offersCityMap.has(cityName) &&
                             <OffersList
-                              offers={offersCityMap.get(city) as Offer[]}
+                              offers={offersCityMap.get(cityName) as Offer[]}
                               mode={OfferCardMode.Favorites}
                             />
                         }

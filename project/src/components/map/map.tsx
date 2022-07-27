@@ -1,4 +1,4 @@
-import {useRef, useEffect} from 'react';
+import {useRef, useEffect, memo} from 'react';
 import {Icon, LayerGroup, Marker} from 'leaflet';
 import {useMap} from '../../hooks';
 import 'leaflet/dist/leaflet.css';
@@ -17,6 +17,7 @@ function Map({city, offers, selectedOffer, mode}: MapProps): JSX.Element {
   const layerGroupRef = useRef(new LayerGroup());
   const map = useMap(mapRef, city.location);
 
+  //effect for rendering offers
   useEffect(() => {
     const layerGroup = layerGroupRef.current;
     if (map) {
@@ -33,7 +34,7 @@ function Map({city, offers, selectedOffer, mode}: MapProps): JSX.Element {
       });
       map.addLayer(layerGroup);
     }
-    return () => {
+    return () => { // effect clean up
       layerGroup.clearLayers();
     };
   }, [map, offers, selectedOffer]);
@@ -41,4 +42,4 @@ function Map({city, offers, selectedOffer, mode}: MapProps): JSX.Element {
   return <section ref={mapRef} className={`${mode}__map map`}></section>;
 }
 
-export default Map;
+export default memo(Map);
