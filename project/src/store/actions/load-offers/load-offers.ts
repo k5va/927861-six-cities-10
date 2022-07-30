@@ -1,10 +1,12 @@
-import {OfferType} from '../../const';
-import {Offer} from '../../types';
-import jsonData from './offers.json';
+import {createAsyncThunk} from '@reduxjs/toolkit';
+import {AxiosInstance} from 'axios';
+import { OfferType } from '../../../const';
+import {AppDispatch, Offer, State} from '../../../types';
+import {setOffers} from '../../actions';
 
 type JSONValue = { [key: string]: number | boolean | string | string[] | JSONValue };
 
-function createOffer(raw: JSONValue): Offer {
+const createOffer = (raw: JSONValue): Offer => {
   const city: JSONValue = raw['city'] as JSONValue;
   const cityLocation: JSONValue = city['location'] as JSONValue;
   const host: JSONValue = raw['host'] as JSONValue;
@@ -44,6 +46,18 @@ function createOffer(raw: JSONValue): Offer {
       zoom: location['zoom'] as number,
     },
   };
-}
+};
 
-export default jsonData.map(createOffer);
+const loadOffers = createAsyncThunk<void, undefined, {
+  dispatch: AppDispatch,
+  state: State,
+  extra: AxiosInstance
+}>(
+  'data/loadOffers',
+  async (_arg, {dispatch, extra: api}) => {
+    const {data} = await api.get<JSONValue[]>('/hotels');
+    dispatch(setOffers({offers: data.map(createOffer)}));
+  },
+);
+
+export default loadOffers;

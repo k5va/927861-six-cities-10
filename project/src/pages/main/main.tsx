@@ -14,7 +14,7 @@ function Main(): JSX.Element {
         <main className="page__main page__main--index">
           <h1 className="visually-hidden">Cities</h1>
           <CitiesList />
-          <CityOffers offers={cityOffers}/>
+          {cityOffers.length && <CityOffers offers={cityOffers}/>}
         </main>
       </div>
     </>
