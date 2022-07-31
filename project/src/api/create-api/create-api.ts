@@ -1,8 +1,8 @@
 import axios, {AxiosError, AxiosInstance, AxiosRequestConfig, AxiosResponse} from 'axios';
-import {getToken} from './token';
 import {StatusCodes} from 'http-status-codes';
-import {store} from '../store';
-import {clearError, setError} from '../store/actions';
+import {store} from '../../store';
+import {clearError, setError} from '../../store/actions';
+import {getToken} from '..';
 
 const StatusCodeMapping: Record<number, boolean> = {
   [StatusCodes.BAD_REQUEST]: true,
@@ -48,4 +48,4 @@ const createAPI = (): AxiosInstance => {
   return api;
 };
 
-export {createAPI};
+export default createAPI;
