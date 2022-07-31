@@ -12,3 +12,4 @@ export {default as ReviewsList} from './reviews-list/reviews-list';
 export {default as ReviewCard} from './review-card/review-card';
 export {default as Rating} from './rating/rating';
 export {default as OffersSorting} from './offers-sorting/offers-sorting';
+export {default as NoOffers} from './no-offers/no-offers';

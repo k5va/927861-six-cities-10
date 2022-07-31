@@ -1,4 +1,4 @@
-import {Header, SVGSymbols, CitiesList, CityOffers} from '../../components';
+import {Header, SVGSymbols, CitiesList, CityOffers, NoOffers} from '../../components';
 import {useAppSelector} from '../../hooks';
 import {findCityOffers} from '../../utils';
 
@@ -14,7 +14,7 @@ function Main(): JSX.Element {
         <main className="page__main page__main--index">
           <h1 className="visually-hidden">Cities</h1>
           <CitiesList />
-          {cityOffers.length && <CityOffers offers={cityOffers}/>}
+          {cityOffers.length ? <CityOffers offers={cityOffers} /> : <NoOffers city={city} />}
         </main>
       </div>
     </>
