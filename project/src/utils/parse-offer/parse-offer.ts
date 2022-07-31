@@ -1,10 +1,12 @@
 import {OfferType} from '../../const';
-import {Offer} from '../../types';
-import jsonData from './offers.json';
+import {JSONValue, Offer} from '../../types';
 
-type JSONValue = { [key: string]: number | boolean | string | string[] | JSONValue };
-
-function createOffer(raw: JSONValue): Offer {
+/**
+ * Creates offer from json data
+ * @param {JSONValue} raw - json data
+ * @returns {Offer} - offer
+ */
+const parseOffer = (raw: JSONValue): Offer => {
   const city: JSONValue = raw['city'] as JSONValue;
   const cityLocation: JSONValue = city['location'] as JSONValue;
   const host: JSONValue = raw['host'] as JSONValue;
@@ -44,6 +46,6 @@ function createOffer(raw: JSONValue): Offer {
       zoom: location['zoom'] as number,
     },
   };
-}
+};
 
-export default jsonData.map(createOffer);
+export default parseOffer;

@@ -5,3 +5,4 @@ export type {default as User} from './user/user';
 export type {default as Review} from './review/review';
 export type {default as State} from './state/state';
 export type {default as AppDispatch} from './app-dispatch/app-dispatch';
+export type {default as JSONValue} from './json-value/json-value';
