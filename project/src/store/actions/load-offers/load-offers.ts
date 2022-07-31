@@ -1,8 +1,9 @@
 import {createAsyncThunk} from '@reduxjs/toolkit';
 import {AxiosInstance} from 'axios';
+import {AppStatus} from '../../../const';
 import {AppDispatch, JSONValue, State} from '../../../types';
 import {parseOffer} from '../../../utils';
-import {setOffers} from '../../actions';
+import {setOffers, setAppStatus} from '../../actions';
 
 /**
  * Action for loading all offers from server
@@ -22,6 +23,7 @@ const loadOffers = createAsyncThunk<
   async (_arg, {dispatch, extra: api}) => {
     const {data} = await api.get<JSONValue[]>('/hotels');
     dispatch(setOffers({offers: data.map(parseOffer)}));
+    dispatch(setAppStatus({status: AppStatus.Ready}));
   },
 );
 

@@ -1,9 +1,10 @@
-import {Header, SVGSymbols, CitiesList, CityOffers, NoOffers} from '../../components';
+import {Header, SVGSymbols, CitiesList, CityOffers, NoOffers, Spinner} from '../../components';
+import {AppStatus} from '../../const';
 import {useAppSelector} from '../../hooks';
 import {findCityOffers} from '../../utils';
 
 function Main(): JSX.Element {
-  const {offers, city} = useAppSelector((state) => state);
+  const {offers, city, appStatus} = useAppSelector((state) => state);
   const cityOffers = findCityOffers(city, offers);
 
   return (
@@ -13,6 +14,7 @@ function Main(): JSX.Element {
         <Header />
         <main className="page__main page__main--index">
           <h1 className="visually-hidden">Cities</h1>
+          {appStatus === AppStatus.Pending && <Spinner />}
           <CitiesList />
           {cityOffers.length ? <CityOffers offers={cityOffers} /> : <NoOffers city={city} />}
         </main>

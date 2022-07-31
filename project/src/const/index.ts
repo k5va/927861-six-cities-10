@@ -5,3 +5,4 @@ export {default as OfferCardMode} from './offer-card-mode/offer-card-mode';
 export {default as ReviewRate} from './review-rate/review-rate';
 export {default as Cities} from './cities/cities';
 export {default as OffersSortingType} from './offers-sorting-type/offers-sorting-type';
+export {default as AppStatus} from './app-status/app-status';
