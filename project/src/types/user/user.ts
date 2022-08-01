@@ -3,6 +3,7 @@ type User = {
   isPro: boolean;
   name: string;
   avatarUrl: string;
+  email?: string;
 }
 
 export default User;

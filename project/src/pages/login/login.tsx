@@ -1,6 +1,16 @@
+import {useState} from 'react';
+import {Link, useNavigate} from 'react-router-dom';
 import {SVGSymbols} from '../../components';
+import {AppRoute} from '../../const';
+import {useAppDispatch} from '../../hooks';
+import {login} from '../../store/actions';
 
 function Login(): JSX.Element {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+
   return (
     <>
       <SVGSymbols />
@@ -9,9 +19,9 @@ function Login(): JSX.Element {
           <div className="container">
             <div className="header__wrapper">
               <div className="header__left">
-                <a className="header__logo-link" href="main.html">
+                <Link className="header__logo-link" to={AppRoute.Root}>
                   <img className="header__logo" src="img/logo.svg" alt="6 cities logo" width="81" height="41" />
-                </a>
+                </Link>
               </div>
             </div>
           </div>
@@ -21,14 +31,31 @@ function Login(): JSX.Element {
           <div className="page__login-container container">
             <section className="login">
               <h1 className="login__title">Sign in</h1>
-              <form className="login__form form" action="#" method="post">
+              <form
+                onSubmit={(evt) => {
+                  evt.preventDefault();
+                  dispatch(login({email, password}));
+                  navigate(AppRoute.Root);
+                }}
+                className="login__form form" action="#" method="post"
+              >
                 <div className="login__input-wrapper form__input-wrapper">
                   <label className="visually-hidden">E-mail</label>
-                  <input className="login__input form__input" type="email" name="email" placeholder="Email" required />
+                  <input
+                    value={email}
+                    onChange={({target}) => setEmail(target.value)}
+                    className="login__input form__input" type="email" name="email"
+                    placeholder="Email" required
+                  />
                 </div>
                 <div className="login__input-wrapper form__input-wrapper">
                   <label className="visually-hidden">Password</label>
-                  <input className="login__input form__input" type="password" name="password" placeholder="Password" required />
+                  <input
+                    value={password}
+                    onChange={({target}) => setPassword(target.value)}
+                    className="login__input form__input" type="password" name="password"
+                    placeholder="Password" required
+                  />
                 </div>
                 <button className="login__submit form__submit button" type="submit">Sign in</button>
               </form>

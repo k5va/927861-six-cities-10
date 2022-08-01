@@ -1,7 +1,8 @@
-import {AuthStatus} from '../../const';
+import {AppRoute, AuthStatus} from '../../const';
 
 type PrivateRouteProps = {
-  authStatus: AuthStatus;
+  status: AuthStatus | AuthStatus[];
+  to: AppRoute;
   children: JSX.Element;
 }
 

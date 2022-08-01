@@ -13,12 +13,16 @@ function App(): JSX.Element {
         />
         <Route
           path={AppRoute.Login}
-          element={<Login />}
+          element={
+            <PrivateRoute status={[AuthStatus.NoAuth, AuthStatus.Unknown]} to={AppRoute.Root}>
+              <Login />
+            </PrivateRoute>
+          }
         />
         <Route
           path={AppRoute.Favorites}
           element={
-            <PrivateRoute authStatus={AuthStatus.Auth}>
+            <PrivateRoute status={AuthStatus.Auth} to={AppRoute.Login}>
               <Favorites />
             </PrivateRoute>
           }
