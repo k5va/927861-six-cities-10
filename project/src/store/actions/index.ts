@@ -8,3 +8,4 @@ export {default as setUser} from './set-user/set-user';
 export {default as setError} from './set-error/set-error';
 export {default as clearError} from './clear-error/clear-error';
 export {default as login} from './login/login';
+export {default as logout} from './logout/logout';
