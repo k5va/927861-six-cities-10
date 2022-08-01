@@ -1,12 +1,20 @@
 import {useState} from 'react';
+import {Link, Navigate, useNavigate} from 'react-router-dom';
 import {SVGSymbols} from '../../components';
-import {useAppDispatch} from '../../hooks';
+import {AppRoute, AuthStatus} from '../../const';
+import {useAppDispatch, useAppSelector} from '../../hooks';
 import {login} from '../../store/actions';
 
 function Login(): JSX.Element {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const {authStatus} = useAppSelector((state) => state);
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+
+  if (authStatus === AuthStatus.Auth) {
+    return <Navigate to={AppRoute.Root} />;
+  }
 
   return (
     <>
@@ -16,9 +24,9 @@ function Login(): JSX.Element {
           <div className="container">
             <div className="header__wrapper">
               <div className="header__left">
-                <a className="header__logo-link" href="main.html">
+                <Link className="header__logo-link" to={AppRoute.Root}>
                   <img className="header__logo" src="img/logo.svg" alt="6 cities logo" width="81" height="41" />
-                </a>
+                </Link>
               </div>
             </div>
           </div>
@@ -32,6 +40,7 @@ function Login(): JSX.Element {
                 onSubmit={(evt) => {
                   evt.preventDefault();
                   dispatch(login({email, password}));
+                  navigate(AppRoute.Root);
                 }}
                 className="login__form form" action="#" method="post"
               >
