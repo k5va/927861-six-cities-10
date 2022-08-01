@@ -1,20 +1,15 @@
 import {useState} from 'react';
-import {Link, Navigate, useNavigate} from 'react-router-dom';
+import {Link, useNavigate} from 'react-router-dom';
 import {SVGSymbols} from '../../components';
-import {AppRoute, AuthStatus} from '../../const';
-import {useAppDispatch, useAppSelector} from '../../hooks';
+import {AppRoute} from '../../const';
+import {useAppDispatch} from '../../hooks';
 import {login} from '../../store/actions';
 
 function Login(): JSX.Element {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const {authStatus} = useAppSelector((state) => state);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-
-  if (authStatus === AuthStatus.Auth) {
-    return <Navigate to={AppRoute.Root} />;
-  }
 
   return (
     <>

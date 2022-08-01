@@ -1,6 +1,6 @@
 import {Favorites, Login, Main, NotFound, Room} from '../../pages';
 import {BrowserRouter, Route, Routes} from 'react-router-dom';
-import {AppRoute} from '../../const';
+import {AppRoute, AuthStatus} from '../../const';
 import {PrivateRoute} from '../../components';
 
 function App(): JSX.Element {
@@ -13,12 +13,16 @@ function App(): JSX.Element {
         />
         <Route
           path={AppRoute.Login}
-          element={<Login />}
+          element={
+            <PrivateRoute status={[AuthStatus.NoAuth, AuthStatus.Unknown]} to={AppRoute.Root}>
+              <Login />
+            </PrivateRoute>
+          }
         />
         <Route
           path={AppRoute.Favorites}
           element={
-            <PrivateRoute>
+            <PrivateRoute status={AuthStatus.Auth} to={AppRoute.Login}>
               <Favorites />
             </PrivateRoute>
           }
