@@ -11,6 +11,7 @@ const parseUser = (raw: JSONValue): User => (
     name: raw['name'] as string,
     avatarUrl: raw['avatarUrl'] as string,
     isPro: raw['isPro'] as boolean,
+    email: raw['email'] as string,
   });
 
 export default parseUser;

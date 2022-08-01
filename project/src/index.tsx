@@ -4,6 +4,8 @@ import {Provider} from 'react-redux';
 import {App} from './components';
 import {store} from './store';
 import {checkLogin, loadOffers} from './store/actions';
+import {ToastContainer} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 store.dispatch(checkLogin());
 store.dispatch(loadOffers());
@@ -15,6 +17,7 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <Provider store={store}>
+      <ToastContainer />
       <App />
     </Provider>
   </React.StrictMode>,
