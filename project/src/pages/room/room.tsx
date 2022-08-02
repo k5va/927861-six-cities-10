@@ -9,29 +9,29 @@ import {JSONValue, Offer} from '../../types';
 import {parseOffer} from '../../utils';
 
 function Room(): JSX.Element {
-  const params = useParams();
+  const {id: offerId} = useParams();
   const [nearOffers, setNearOffers] = useState<Offer[]>([]);
   const [offer, setOffer] = useState<Offer | null>(null);
 
   // effect for loading offer
   useEffect(() => {
     const loadOffer = async () => {
-      const {data} = await api.get<JSONValue>(`/hotels/${params.id}`);
+      const {data} = await api.get<JSONValue>(`/hotels/${offerId}`);
       setOffer(parseOffer(data));
     };
 
     loadOffer();
-  }, [params.id]);
+  }, [offerId]);
 
   // effect for loading near offers
   useEffect(() => {
     const loadNearOffers = async () => {
-      const {data} = await api.get<JSONValue[]>(`/hotels/${params.id}/nearby`);
+      const {data} = await api.get<JSONValue[]>(`/hotels/${offerId}/nearby`);
       setNearOffers(data.map(parseOffer));
     };
 
     loadNearOffers();
-  }, [params.id]);
+  }, [offerId]);
 
   if (!offer) {
     return <NotFound />;
@@ -120,7 +120,7 @@ function Room(): JSX.Element {
                   </div>
                 </div>
                 <section className="property__reviews reviews">
-                  <ReviewsList />
+                  <ReviewsList offerId={Number(offerId)} />
                   <ReviewsForm />
                 </section>
               </div>

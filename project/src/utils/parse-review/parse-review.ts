@@ -1,9 +1,6 @@
-import {Review} from '../../types';
-import jsonData from './reviews.json';
+import {JSONValue, Review} from '../../types';
 
-type JSONValue = { [key: string]: number | boolean | string | string[] | JSONValue };
-
-function createReview(raw: JSONValue): Review {
+const parseReview = (raw: JSONValue): Review => {
   const user: JSONValue = raw['user'] as JSONValue;
 
   return {
@@ -18,6 +15,6 @@ function createReview(raw: JSONValue): Review {
     comment: raw['comment'] as string,
     date: new Date(raw['date'] as string),
   };
-}
+};
 
-export default jsonData.map(createReview);
+export default parseReview;

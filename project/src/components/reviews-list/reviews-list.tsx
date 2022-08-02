@@ -1,7 +1,23 @@
-import {reviews} from '../../mocks';
+import {useEffect, useState} from 'react';
 import {ReviewCard} from '../../components';
+import {api} from '../../store';
+import {JSONValue, Review} from '../../types';
+import {parseReview} from '../../utils';
+import {ReviewsListProps} from './types';
 
-function ReviewsList(): JSX.Element {
+function ReviewsList({offerId}: ReviewsListProps): JSX.Element {
+  const [reviews, setReviews] = useState<Review[]>([]);
+
+  // effect for loading reviews
+  useEffect(() => {
+    const loadReviews = async () => {
+      const {data} = await api.get<JSONValue[]>(`/comments/${offerId}`);
+      setReviews(data.map(parseReview));
+    };
+
+    loadReviews();
+  }, [offerId]);
+
   return (
     <>
       <h2 className="reviews__title">
