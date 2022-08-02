@@ -1,5 +1,5 @@
 import {useParams} from 'react-router-dom';
-import {OfferCardMode} from '../../const';
+import {AuthStatus, OfferCardMode} from '../../const';
 import {NotFound} from '../../pages';
 import {Header, Map, OffersList, ReviewsForm,
   ReviewsList, SVGSymbols, Rating} from '../../components';
@@ -7,11 +7,13 @@ import {useEffect, useState} from 'react';
 import {api} from '../../store';
 import {JSONValue, Offer} from '../../types';
 import {parseOffer} from '../../utils';
+import {useAppSelector} from '../../hooks';
 
 function Room(): JSX.Element {
   const {id: offerId} = useParams();
   const [nearOffers, setNearOffers] = useState<Offer[]>([]);
   const [offer, setOffer] = useState<Offer | null>(null);
+  const {authStatus} = useAppSelector((state) => state);
 
   // effect for loading offer
   useEffect(() => {
@@ -121,7 +123,7 @@ function Room(): JSX.Element {
                 </div>
                 <section className="property__reviews reviews">
                   <ReviewsList offerId={Number(offerId)} />
-                  <ReviewsForm />
+                  {authStatus === AuthStatus.Auth && <ReviewsForm />}
                 </section>
               </div>
             </div>
