@@ -3,13 +3,35 @@ import {OfferCardMode} from '../../const';
 import {NotFound} from '../../pages';
 import {Header, Map, OffersList, ReviewsForm,
   ReviewsList, SVGSymbols, Rating} from '../../components';
-import {useAppSelector} from '../../hooks';
+import {useEffect, useState} from 'react';
+import {api} from '../../store';
+import {JSONValue, Offer} from '../../types';
+import {parseOffer} from '../../utils';
 
 function Room(): JSX.Element {
-  const {offers} = useAppSelector((state) => state);
   const params = useParams();
-  const offer = offers.find(({id}) => id === Number(params.id));
-  const nearOffers = offers.slice(1, 4); // TODO: temporary!
+  const [nearOffers, setNearOffers] = useState<Offer[]>([]);
+  const [offer, setOffer] = useState<Offer | null>(null);
+
+  // effect for loading offer
+  useEffect(() => {
+    const loadOffer = async () => {
+      const {data} = await api.get<JSONValue>(`/hotels/${params.id}`);
+      setOffer(parseOffer(data));
+    };
+
+    loadOffer();
+  }, [params.id]);
+
+  // effect for loading near offers
+  useEffect(() => {
+    const loadNearOffers = async () => {
+      const {data} = await api.get<JSONValue[]>(`/hotels/${params.id}/nearby`);
+      setNearOffers(data.map(parseOffer));
+    };
+
+    loadNearOffers();
+  }, [params.id]);
 
   if (!offer) {
     return <NotFound />;
