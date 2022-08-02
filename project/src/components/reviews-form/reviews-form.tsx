@@ -1,24 +1,22 @@
 import React, {ChangeEvent, useState} from 'react';
 import {ReviewRate} from '../../const';
-import {api} from '../../store';
+import {useAppDispatch} from '../../hooks';
+import {postReview} from '../../store/actions';
 import {ReviewsFormProps} from './types';
 
 function ReviewsForm({offerId}: ReviewsFormProps): JSX.Element {
   const [text, setText] = useState('');
   const [currentRate, setRate] = useState(ReviewRate.get('terribly') as number);
+  const dispatch = useAppDispatch();
 
   const onRateChange = (evt: ChangeEvent<HTMLInputElement>) => setRate(Number(evt.target.value));
   const onTextChange = (evt: ChangeEvent<HTMLTextAreaElement>) => setText(evt.target.value);
-
-  const postReview = async (comment: string, rating: number) => {
-    await api.post(`/comments/${offerId}`, {comment, rating});
-  };
 
   return (
     <form
       onSubmit={(evt) => {
         evt.preventDefault();
-        postReview(text, currentRate);
+        dispatch(postReview({offerId: offerId, comment: text, rating: currentRate}));
       }}
       className="reviews__form form" action="#" method="post"
     >

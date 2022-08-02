@@ -9,3 +9,8 @@ export {default as setError} from './set-error/set-error';
 export {default as clearError} from './clear-error/clear-error';
 export {default as login} from './login/login';
 export {default as logout} from './logout/logout';
+export {default as setCurrentOffer} from './set-current-offer/set-current-offer';
+export {default as setReviews} from './set-reviews/set-reviews';
+export {default as loadOffer} from './load-offer/load-offer';
+export {default as loadReviews} from './load-reviews/load-reviews';
+export {default as postReview} from './post-review/post-review';

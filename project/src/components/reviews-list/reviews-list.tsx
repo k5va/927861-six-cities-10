@@ -1,22 +1,8 @@
-import {useEffect, useState} from 'react';
 import {ReviewCard} from '../../components';
-import {api} from '../../store';
-import {JSONValue, Review} from '../../types';
-import {parseReview} from '../../utils';
-import {ReviewsListProps} from './types';
+import {useAppSelector} from '../../hooks';
 
-function ReviewsList({offerId}: ReviewsListProps): JSX.Element {
-  const [reviews, setReviews] = useState<Review[]>([]);
-
-  // effect for loading reviews
-  useEffect(() => {
-    const loadReviews = async () => {
-      const {data} = await api.get<JSONValue[]>(`/comments/${offerId}`);
-      setReviews(data.map(parseReview));
-    };
-
-    loadReviews();
-  }, [offerId]);
+function ReviewsList(): JSX.Element {
+  const {reviews} = useAppSelector((state) => state);
 
   return (
     <>

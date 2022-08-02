@@ -7,23 +7,19 @@ import {useEffect, useState} from 'react';
 import {api} from '../../store';
 import {JSONValue, Offer} from '../../types';
 import {parseOffer} from '../../utils';
-import {useAppSelector} from '../../hooks';
+import {useAppDispatch, useAppSelector} from '../../hooks';
+import {loadOffer, loadReviews} from '../../store/actions';
 
 function Room(): JSX.Element {
   const {id: offerId} = useParams();
   const [nearOffers, setNearOffers] = useState<Offer[]>([]);
-  const [offer, setOffer] = useState<Offer | null>(null);
-  const {authStatus} = useAppSelector((state) => state);
+  const {currentOffer, authStatus} = useAppSelector((state) => state);
+  const dispatch = useAppDispatch();
 
   // effect for loading offer
   useEffect(() => {
-    const loadOffer = async () => {
-      const {data} = await api.get<JSONValue>(`/hotels/${offerId}`);
-      setOffer(parseOffer(data));
-    };
-
-    loadOffer();
-  }, [offerId]);
+    dispatch(loadOffer({offerId: Number(offerId)}));
+  }, [offerId, dispatch]);
 
   // effect for loading near offers
   useEffect(() => {
@@ -35,12 +31,19 @@ function Room(): JSX.Element {
     loadNearOffers();
   }, [offerId]);
 
-  if (!offer) {
+  // effect for loading reviews
+  useEffect(() => {
+    dispatch(loadReviews({offerId: Number(offerId)}));
+
+  }, [offerId, dispatch]);
+
+
+  if (!currentOffer) {
     return <NotFound />;
   }
 
-  const {title, isPremium, rating, type, maxAdults,
-    bedrooms, price, host, goods, description} = offer;
+  const {title, isPremium, rating, type, maxAdults, city,
+    bedrooms, price, host, goods, description, images} = currentOffer;
 
   return (
     <>
@@ -51,10 +54,10 @@ function Room(): JSX.Element {
           <section className="property">
             <div className="property__gallery-container container">
               <div className="property__gallery">
-                {offer.images.map((src) =>
+                {images.map((src) =>
                   (
                     <div key={src} className="property__image-wrapper">
-                      <img className="property__image" src={src} alt={offer.title} />
+                      <img className="property__image" src={src} alt={title} />
                     </div>
                   )
                 )}
@@ -79,7 +82,7 @@ function Room(): JSX.Element {
                 </div>
                 <div className="property__rating rating">
                   <div className="property__stars rating__stars">
-                    <Rating rate={offer.rating} />
+                    <Rating rate={rating} />
                   </div>
                   <span className="property__rating-value rating__value">{rating}</span>
                 </div>
@@ -122,15 +125,15 @@ function Room(): JSX.Element {
                   </div>
                 </div>
                 <section className="property__reviews reviews">
-                  <ReviewsList offerId={Number(offerId)} />
+                  <ReviewsList />
                   {authStatus === AuthStatus.Auth && <ReviewsForm offerId={Number(offerId)}/>}
                 </section>
               </div>
             </div>
             <Map
-              city={offer.city}
-              offers={[offer, ...nearOffers]}
-              selectedOffer={offer}
+              city={city}
+              offers={[currentOffer, ...nearOffers]}
+              selectedOffer={currentOffer}
               mode={'property'}
             />
           </section>
