@@ -1,15 +1,27 @@
 import React, {ChangeEvent, useState} from 'react';
 import {ReviewRate} from '../../const';
+import {api} from '../../store';
+import {ReviewsFormProps} from './types';
 
-function ReviewsForm(): JSX.Element {
+function ReviewsForm({offerId}: ReviewsFormProps): JSX.Element {
   const [text, setText] = useState('');
-  const [currentRate, setRate] = useState(ReviewRate.get('terribly'));
+  const [currentRate, setRate] = useState(ReviewRate.get('terribly') as number);
 
   const onRateChange = (evt: ChangeEvent<HTMLInputElement>) => setRate(Number(evt.target.value));
   const onTextChange = (evt: ChangeEvent<HTMLTextAreaElement>) => setText(evt.target.value);
 
+  const postReview = async (comment: string, rating: number) => {
+    await api.post(`/comments/${offerId}`, {comment, rating});
+  };
+
   return (
-    <form className="reviews__form form" action="#" method="post">
+    <form
+      onSubmit={(evt) => {
+        evt.preventDefault();
+        postReview(text, currentRate);
+      }}
+      className="reviews__form form" action="#" method="post"
+    >
       <label className="reviews__label form__label" htmlFor="review">Your review</label>
       <div className="reviews__rating-form form__rating">
         {[...ReviewRate.entries()].map(([title, rate]) => (
@@ -44,7 +56,7 @@ function ReviewsForm(): JSX.Element {
         <p className="reviews__help">
           To submit review please make sure to set <span className="reviews__star">rating</span> and describe your stay with at least <b className="reviews__text-amount">50 characters</b>.
         </p>
-        <button className="reviews__submit form__submit button" type="submit" disabled>Submit</button>
+        <button className="reviews__submit form__submit button" type="submit">Submit</button>
       </div>
     </form>
   );

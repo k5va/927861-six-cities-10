@@ -123,7 +123,7 @@ function Room(): JSX.Element {
                 </div>
                 <section className="property__reviews reviews">
                   <ReviewsList offerId={Number(offerId)} />
-                  {authStatus === AuthStatus.Auth && <ReviewsForm />}
+                  {authStatus === AuthStatus.Auth && <ReviewsForm offerId={Number(offerId)}/>}
                 </section>
               </div>
             </div>
