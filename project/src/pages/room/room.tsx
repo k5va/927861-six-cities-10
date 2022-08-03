@@ -3,17 +3,13 @@ import {AuthStatus, OfferCardMode} from '../../const';
 import {NotFound} from '../../pages';
 import {Header, Map, OffersList, ReviewsForm,
   ReviewsList, SVGSymbols, Rating} from '../../components';
-import {useEffect, useState} from 'react';
-import {api} from '../../store';
-import {JSONValue, Offer} from '../../types';
-import {parseOffer} from '../../utils';
+import {useEffect} from 'react';
 import {useAppDispatch, useAppSelector} from '../../hooks';
-import {loadOffer, loadReviews, setCurrentOffer, setReviews} from '../../store/actions';
+import {loadNearOffers, loadOffer, loadReviews, setCurrentOffer, setNearOffers, setReviews} from '../../store/actions';
 
 function Room(): JSX.Element {
   const {id: offerId} = useParams();
-  const [nearOffers, setNearOffers] = useState<Offer[]>([]);
-  const {currentOffer, authStatus} = useAppSelector((state) => state);
+  const {currentOffer, nearOffers, authStatus} = useAppSelector((state) => state);
   const dispatch = useAppDispatch();
 
   // effect for loading offer
@@ -26,13 +22,11 @@ function Room(): JSX.Element {
 
   // effect for loading near offers
   useEffect(() => {
-    const loadNearOffers = async () => {
-      const {data} = await api.get<JSONValue[]>(`/hotels/${offerId}/nearby`);
-      setNearOffers(data.map(parseOffer));
+    dispatch(loadNearOffers({offerId: Number(offerId)}));
+    return () => { // clean up
+      dispatch(setNearOffers({offers: []}));
     };
-
-    loadNearOffers();
-  }, [offerId]);
+  }, [offerId, dispatch]);
 
   // effect for loading reviews
   useEffect(() => {

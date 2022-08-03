@@ -14,3 +14,5 @@ export {default as setReviews} from './set-reviews/set-reviews';
 export {default as loadOffer} from './load-offer/load-offer';
 export {default as loadReviews} from './load-reviews/load-reviews';
 export {default as postReview} from './post-review/post-review';
+export {default as setNearOffers} from './set-near-offers/set-near-offers';
+export {default as loadNearOffers} from './load-near-offers/load-near-offers';
