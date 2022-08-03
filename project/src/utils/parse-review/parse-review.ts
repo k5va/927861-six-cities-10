@@ -13,7 +13,7 @@ const parseReview = (raw: JSONValue): Review => {
     },
     rating: raw['rating'] as number,
     comment: raw['comment'] as string,
-    date: new Date(raw['date'] as string),
+    date: raw['date'] as string,
   };
 };
 
