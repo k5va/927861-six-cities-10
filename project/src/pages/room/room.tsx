@@ -8,34 +8,23 @@ import {useAppDispatch, useAppSelector} from '../../hooks';
 import {loadNearOffers, loadOffer, loadReviews, setCurrentOffer, setNearOffers, setReviews} from '../../store/actions';
 
 function Room(): JSX.Element {
-  const {id: offerId} = useParams();
+  const {id} = useParams();
+  const offerId = Number(id);
   const {currentOffer, nearOffers, authStatus} = useAppSelector((state) => state);
   const dispatch = useAppDispatch();
 
-  // effect for loading offer
+  // effect for loading data
   useEffect(() => {
-    dispatch(loadOffer({offerId: Number(offerId)}));
+    dispatch(loadOffer({offerId}));
+    dispatch(loadNearOffers({offerId}));
+    dispatch(loadReviews({offerId}));
+
     return () => { // clean up
       dispatch(setCurrentOffer({offer: null}));
-    };
-  }, [offerId, dispatch]);
-
-  // effect for loading near offers
-  useEffect(() => {
-    dispatch(loadNearOffers({offerId: Number(offerId)}));
-    return () => { // clean up
       dispatch(setNearOffers({offers: []}));
-    };
-  }, [offerId, dispatch]);
-
-  // effect for loading reviews
-  useEffect(() => {
-    dispatch(loadReviews({offerId: Number(offerId)}));
-    return () => { // clean up
       dispatch(setReviews({reviews: []}));
     };
   }, [offerId, dispatch]);
-
 
   if (!currentOffer) {
     return <NotFound />;
@@ -125,7 +114,7 @@ function Room(): JSX.Element {
                 </div>
                 <section className="property__reviews reviews">
                   <ReviewsList />
-                  {authStatus === AuthStatus.Auth && <ReviewsForm offerId={Number(offerId)}/>}
+                  {authStatus === AuthStatus.Auth && <ReviewsForm offerId={offerId}/>}
                 </section>
               </div>
             </div>
