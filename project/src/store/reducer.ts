@@ -1,5 +1,5 @@
 import {createReducer} from '@reduxjs/toolkit';
-import {setAppStatus, setAuthStatus, setCity, setCurrentOffer, setNearOffers, setOffers, setReviews, setUser} from './actions';
+import {resetCurrentOffer, setAppStatus, setAuthStatus, setCity, setCurrentOffer, setNearOffers, setOffers, setReviews, setUser} from './actions';
 import {AppStatus, AuthStatus, Cities} from '../const';
 import {Offer, Review, User} from '../types';
 
@@ -50,6 +50,11 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(setNearOffers, (state, action) => {
       state.nearOffers = action.payload.offers;
+    })
+    .addCase(resetCurrentOffer, (state) => {
+      state.currentOffer = null;
+      state.nearOffers = [];
+      state.reviews = [];
     });
 });
 

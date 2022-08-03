@@ -1,30 +1,29 @@
 import {useParams} from 'react-router-dom';
-import {AuthStatus, OfferCardMode} from '../../const';
+import {AppStatus, AuthStatus, OfferCardMode} from '../../const';
 import {NotFound} from '../../pages';
 import {Header, Map, OffersList, ReviewsForm,
-  ReviewsList, SVGSymbols, Rating} from '../../components';
+  ReviewsList, SVGSymbols, Rating, Spinner} from '../../components';
 import {useEffect} from 'react';
 import {useAppDispatch, useAppSelector} from '../../hooks';
-import {loadNearOffers, loadOffer, loadReviews, setCurrentOffer, setNearOffers, setReviews} from '../../store/actions';
+import {loadCurrentOffer, resetCurrentOffer} from '../../store/actions';
 
 function Room(): JSX.Element {
   const {id} = useParams();
   const offerId = Number(id);
-  const {currentOffer, nearOffers, authStatus} = useAppSelector((state) => state);
+  const {currentOffer, nearOffers, authStatus, appStatus} = useAppSelector((state) => state);
   const dispatch = useAppDispatch();
 
-  // effect for loading data
+  // effect for loading current offer's data
   useEffect(() => {
-    dispatch(loadOffer({offerId}));
-    dispatch(loadNearOffers({offerId}));
-    dispatch(loadReviews({offerId}));
-
+    dispatch(loadCurrentOffer({offerId}));
     return () => { // clean up
-      dispatch(setCurrentOffer({offer: null}));
-      dispatch(setNearOffers({offers: []}));
-      dispatch(setReviews({reviews: []}));
+      dispatch(resetCurrentOffer());
     };
   }, [offerId, dispatch]);
+
+  if (appStatus === AppStatus.Pending) {
+    return <Spinner />;
+  }
 
   if (!currentOffer) {
     return <NotFound />;
