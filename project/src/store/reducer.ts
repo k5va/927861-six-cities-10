@@ -1,11 +1,14 @@
 import {createReducer} from '@reduxjs/toolkit';
-import {setAppStatus, setAuthStatus, setCity, setOffers, setUser} from './actions';
+import {resetCurrentOffer, setAppStatus, setAuthStatus, setCity, setCurrentOffer, setNearOffers, setOffers, setReviews, setUser} from './actions';
 import {AppStatus, AuthStatus, Cities} from '../const';
-import {Offer, User} from '../types';
+import {Offer, Review, User} from '../types';
 
 const initialState: {
   city: Cities;
   offers: Offer[];
+  currentOffer: Offer | null;
+  nearOffers: Offer[];
+  reviews: Review[];
   appStatus: AppStatus;
   authStatus: AuthStatus;
   user: User | null;
@@ -13,6 +16,9 @@ const initialState: {
 } = {
   city: Cities.Paris,
   offers: [],
+  currentOffer: null,
+  nearOffers: [],
+  reviews: [],
   appStatus: AppStatus.Pending,
   authStatus: AuthStatus.Unknown,
   user: null,
@@ -35,6 +41,20 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(setUser, (state, action) => {
       state.user = action.payload.user;
+    })
+    .addCase(setCurrentOffer, (state, action) => {
+      state.currentOffer = action.payload.offer;
+    })
+    .addCase(setReviews, (state, action) => {
+      state.reviews = action.payload.reviews;
+    })
+    .addCase(setNearOffers, (state, action) => {
+      state.nearOffers = action.payload.offers;
+    })
+    .addCase(resetCurrentOffer, (state) => {
+      state.currentOffer = null;
+      state.nearOffers = [];
+      state.reviews = [];
     });
 });
 

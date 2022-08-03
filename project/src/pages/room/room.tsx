@@ -1,22 +1,36 @@
 import {useParams} from 'react-router-dom';
-import {OfferCardMode} from '../../const';
+import {AppStatus, AuthStatus, OfferCardMode} from '../../const';
 import {NotFound} from '../../pages';
 import {Header, Map, OffersList, ReviewsForm,
-  ReviewsList, SVGSymbols, Rating} from '../../components';
-import {useAppSelector} from '../../hooks';
+  ReviewsList, SVGSymbols, Rating, Spinner} from '../../components';
+import {useEffect} from 'react';
+import {useAppDispatch, useAppSelector} from '../../hooks';
+import {loadCurrentOffer, resetCurrentOffer} from '../../store/actions';
 
 function Room(): JSX.Element {
-  const {offers} = useAppSelector((state) => state);
-  const params = useParams();
-  const offer = offers.find(({id}) => id === Number(params.id));
-  const nearOffers = offers.slice(1, 4); // TODO: temporary!
+  const {id} = useParams();
+  const offerId = Number(id);
+  const {currentOffer, nearOffers, authStatus, appStatus} = useAppSelector((state) => state);
+  const dispatch = useAppDispatch();
 
-  if (!offer) {
+  // effect for loading current offer's data
+  useEffect(() => {
+    dispatch(loadCurrentOffer({offerId}));
+    return () => { // clean up
+      dispatch(resetCurrentOffer());
+    };
+  }, [offerId, dispatch]);
+
+  if (appStatus === AppStatus.Pending) {
+    return <Spinner />;
+  }
+
+  if (!currentOffer) {
     return <NotFound />;
   }
 
-  const {title, isPremium, rating, type, maxAdults,
-    bedrooms, price, host, goods, description} = offer;
+  const {title, isPremium, rating, type, maxAdults, city,
+    bedrooms, price, host, goods, description, images} = currentOffer;
 
   return (
     <>
@@ -27,10 +41,10 @@ function Room(): JSX.Element {
           <section className="property">
             <div className="property__gallery-container container">
               <div className="property__gallery">
-                {offer.images.map((src) =>
+                {images.map((src) =>
                   (
                     <div key={src} className="property__image-wrapper">
-                      <img className="property__image" src={src} alt={offer.title} />
+                      <img className="property__image" src={src} alt={title} />
                     </div>
                   )
                 )}
@@ -55,7 +69,7 @@ function Room(): JSX.Element {
                 </div>
                 <div className="property__rating rating">
                   <div className="property__stars rating__stars">
-                    <Rating rate={offer.rating} />
+                    <Rating rate={rating} />
                   </div>
                   <span className="property__rating-value rating__value">{rating}</span>
                 </div>
@@ -99,14 +113,14 @@ function Room(): JSX.Element {
                 </div>
                 <section className="property__reviews reviews">
                   <ReviewsList />
-                  <ReviewsForm />
+                  {authStatus === AuthStatus.Auth && <ReviewsForm offerId={offerId}/>}
                 </section>
               </div>
             </div>
             <Map
-              city={offer.city}
-              offers={[offer, ...nearOffers]}
-              selectedOffer={offer}
+              city={city}
+              offers={[currentOffer, ...nearOffers]}
+              selectedOffer={currentOffer}
               mode={'property'}
             />
           </section>

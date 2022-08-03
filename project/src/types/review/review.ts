@@ -5,7 +5,7 @@ type Review = {
   user: User;
   rating: number;
   comment: string;
-  date: Date;
+  date: string;
 }
 
 export default Review;

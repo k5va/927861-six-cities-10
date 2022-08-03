@@ -1,7 +1,9 @@
-import {reviews} from '../../mocks';
 import {ReviewCard} from '../../components';
+import {useAppSelector} from '../../hooks';
 
 function ReviewsList(): JSX.Element {
+  const {reviews} = useAppSelector((state) => state);
+
   return (
     <>
       <h2 className="reviews__title">
