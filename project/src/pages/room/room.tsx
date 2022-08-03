@@ -8,7 +8,7 @@ import {api} from '../../store';
 import {JSONValue, Offer} from '../../types';
 import {parseOffer} from '../../utils';
 import {useAppDispatch, useAppSelector} from '../../hooks';
-import {loadOffer, loadReviews} from '../../store/actions';
+import {loadOffer, loadReviews, setCurrentOffer, setReviews} from '../../store/actions';
 
 function Room(): JSX.Element {
   const {id: offerId} = useParams();
@@ -19,6 +19,9 @@ function Room(): JSX.Element {
   // effect for loading offer
   useEffect(() => {
     dispatch(loadOffer({offerId: Number(offerId)}));
+    return () => { // clean up
+      dispatch(setCurrentOffer({offer: null}));
+    };
   }, [offerId, dispatch]);
 
   // effect for loading near offers
@@ -34,7 +37,9 @@ function Room(): JSX.Element {
   // effect for loading reviews
   useEffect(() => {
     dispatch(loadReviews({offerId: Number(offerId)}));
-
+    return () => { // clean up
+      dispatch(setReviews({reviews: []}));
+    };
   }, [offerId, dispatch]);
 
 
