@@ -5,12 +5,16 @@ import {Header, Map, OffersList, ReviewsForm,
   ReviewsList, SVGSymbols, Rating, Spinner} from '../../components';
 import {useEffect} from 'react';
 import {useAppDispatch, useAppSelector} from '../../hooks';
-import {loadCurrentOffer, resetCurrentOffer} from '../../store/actions';
+import {getAppStatus, getAuthStatus, getCurrentOffer, getNearOffers} from '../../store/selectors';
+import {loadCurrentOffer, resetCurrentOffer} from '../../store';
 
 function Room(): JSX.Element {
   const {id} = useParams();
   const offerId = Number(id);
-  const {currentOffer, nearOffers, authStatus, appStatus} = useAppSelector((state) => state);
+  const authStatus = useAppSelector(getAuthStatus);
+  const appStatus = useAppSelector(getAppStatus);
+  const currentOffer = useAppSelector(getCurrentOffer);
+  const nearOffers = useAppSelector(getNearOffers);
   const dispatch = useAppDispatch();
 
   // effect for loading current offer's data

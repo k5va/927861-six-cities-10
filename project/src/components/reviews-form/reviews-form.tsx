@@ -1,7 +1,7 @@
 import React, {ChangeEvent, useState} from 'react';
 import {ReviewRate} from '../../const';
 import {useAppDispatch} from '../../hooks';
-import {postReview} from '../../store/actions';
+import {postReview} from '../../store';
 import {ReviewsFormProps} from './types';
 
 function ReviewsForm({offerId}: ReviewsFormProps): JSX.Element {

@@ -7,3 +7,6 @@ export type {default as State} from './state/state';
 export type {default as AppDispatch} from './app-dispatch/app-dispatch';
 export type {default as JSONValue} from './json-value/json-value';
 export type {default as Token} from './token/token';
+export type {default as UserProcess} from './user-process/user-process';
+export type {default as DataProcess} from './data-process/data-process';
+export type {default as AppProcess} from './app-process/app-process';

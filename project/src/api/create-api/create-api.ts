@@ -46,4 +46,4 @@ const createAPI = (): AxiosInstance => {
   return api;
 };
 
-export default createAPI;
+export default createAPI();

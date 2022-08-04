@@ -1,9 +1,9 @@
 import {createAsyncThunk} from '@reduxjs/toolkit';
 import {AxiosInstance} from 'axios';
 import {AppStatus} from '../../../const';
-import {AppDispatch, JSONValue, State} from '../../../types';
+import {AppDispatch, JSONValue, Offer, Review, State} from '../../../types';
 import {parseOffer, parseReview} from '../../../utils';
-import {setCurrentOffer, setAppStatus, setNearOffers, setReviews} from '..';
+import {setAppStatus} from '../../../store';
 
 /**
  * Action for loading offer from server
@@ -11,7 +11,7 @@ import {setCurrentOffer, setAppStatus, setNearOffers, setReviews} from '..';
  * @param {AsyncThunkPayloadCreator} payloadCreator - action callback
  */
 const loadCurrentOffer = createAsyncThunk<
-  void, // action callback return value type
+  [Offer, Offer[], Review[]], // action callback return value type
   { // _arg type
     offerId: number,
   },
@@ -26,13 +26,10 @@ const loadCurrentOffer = createAsyncThunk<
     dispatch(setAppStatus({status: AppStatus.Pending}));
 
     const {data: offerData} = await api.get<JSONValue>(`/hotels/${offerId}`);
-    dispatch(setCurrentOffer({offer: parseOffer(offerData)}));
     const {data: nearOffersData} = await api.get<JSONValue[]>(`/hotels/${offerId}/nearby`);
-    dispatch(setNearOffers({offers: nearOffersData.map(parseOffer)}));
     const {data: reviewsData} = await api.get<JSONValue[]>(`/comments/${offerId}`);
-    dispatch(setReviews({reviews: reviewsData.map(parseReview)}));
 
-    dispatch(setAppStatus({status: AppStatus.Ready}));
+    return [parseOffer(offerData), nearOffersData.map(parseOffer), reviewsData.map(parseReview)];
   },
 );
 

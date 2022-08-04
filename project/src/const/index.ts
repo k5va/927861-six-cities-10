@@ -7,3 +7,4 @@ export {default as Cities} from './cities/cities';
 export {default as OffersSortingType} from './offers-sorting-type/offers-sorting-type';
 export {default as AppStatus} from './app-status/app-status';
 export {default as AUTH_TOKEN_KEY_NAME} from './auth-token-key-name/auth-token-key-name';
+export {default as NameSpace} from './name-space/name-space';

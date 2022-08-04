@@ -1,8 +1,9 @@
 import {ReviewCard} from '../../components';
 import {useAppSelector} from '../../hooks';
+import {getReviews} from '../../store/selectors';
 
 function ReviewsList(): JSX.Element {
-  const {reviews} = useAppSelector((state) => state);
+  const reviews = useAppSelector(getReviews);
 
   return (
     <>

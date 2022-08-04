@@ -1,8 +1,7 @@
 import {createAsyncThunk} from '@reduxjs/toolkit';
 import {AxiosInstance} from 'axios';
-import {AppDispatch, JSONValue, State} from '../../../types';
+import {AppDispatch, JSONValue, Review, State} from '../../../types';
 import {parseReview} from '../../../utils';
-import {setReviews} from '../../actions';
 
 /**
  * Action for posting review to server
@@ -10,7 +9,7 @@ import {setReviews} from '../../actions';
  * @param {AsyncThunkPayloadCreator} payloadCreator - action callback
  */
 const postReview = createAsyncThunk<
-  void, // action callback return value type
+  Review[], // action callback return value type
   { // _arg type
     offerId: number,
     comment: string,
@@ -23,10 +22,10 @@ const postReview = createAsyncThunk<
   }
 >(
   'data/postReview',
-  async ({offerId, comment, rating}, {dispatch, extra: api}) => {
+  async ({offerId, comment, rating}, {extra: api}) => {
     await api.post(`/comments/${offerId}`, {comment, rating});
     const {data} = await api.get<JSONValue[]>(`/comments/${offerId}`);
-    dispatch(setReviews({reviews: data.map(parseReview)}));
+    return data.map(parseReview);
   },
 );
 
