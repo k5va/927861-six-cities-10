@@ -1,11 +1,12 @@
 import {Favorites, Login, Main, NotFound, Room} from '../../pages';
-import {BrowserRouter, Route, Routes} from 'react-router-dom';
+import {Route, Routes} from 'react-router-dom';
 import {AppRoute, AuthStatus} from '../../const';
-import {PrivateRoute} from '../../components';
+import {PrivateRoute, HistoryRouter} from '../../components';
+import {browserHistory} from '../../browser-history';
 
 function App(): JSX.Element {
   return (
-    <BrowserRouter>
+    <HistoryRouter history={browserHistory}>
       <Routes>
         <Route
           path={AppRoute.Root}
@@ -36,7 +37,7 @@ function App(): JSX.Element {
           element={<NotFound />}
         />
       </Routes>
-    </BrowserRouter>
+    </HistoryRouter>
   );
 }
 

@@ -1,7 +1,9 @@
 import {createAsyncThunk} from '@reduxjs/toolkit';
 import {AxiosInstance} from 'axios';
+import {AppRoute} from '../../../const';
 import {AppDispatch, JSONValue, Offer, Review, State} from '../../../types';
 import {parseOffer, parseReview} from '../../../utils';
+import {redirectToRoute} from '../../actions';
 
 /**
  * Action for loading offer from server
@@ -21,11 +23,16 @@ const loadCurrentOffer = createAsyncThunk<
 >(
   'data/loadOffer',
   async ({offerId}, {dispatch, extra: api}) => {
-    const {data: offerData} = await api.get<JSONValue>(`/hotels/${offerId}`);
-    const {data: nearOffersData} = await api.get<JSONValue[]>(`/hotels/${offerId}/nearby`);
-    const {data: reviewsData} = await api.get<JSONValue[]>(`/comments/${offerId}`);
+    try {
+      const {data: offerData} = await api.get<JSONValue>(`/hotels/${offerId}`);
+      const {data: nearOffersData} = await api.get<JSONValue[]>(`/hotels/${offerId}/nearby`);
+      const {data: reviewsData} = await api.get<JSONValue[]>(`/comments/${offerId}`);
 
-    return [parseOffer(offerData), nearOffersData.map(parseOffer), reviewsData.map(parseReview)];
+      return [parseOffer(offerData), nearOffersData.map(parseOffer), reviewsData.map(parseReview)];
+    } catch (err) {
+      dispatch(redirectToRoute(AppRoute.NotFound));
+      throw err;
+    }
   },
 );
 

@@ -4,3 +4,4 @@ export {default as login} from './login/login';
 export {default as logout} from './logout/logout';
 export {default as loadCurrentOffer} from './load-current-offer/load-current-offer';
 export {default as postReview} from './post-review/post-review';
+export {default as redirectToRoute} from './redirect-to-route/redirect-to-route';

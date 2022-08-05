@@ -1,18 +1,16 @@
 import {useParams} from 'react-router-dom';
-import {AppStatus, AuthStatus, OfferCardMode} from '../../const';
-import {NotFound} from '../../pages';
+import {AuthStatus, OfferCardMode} from '../../const';
 import {Header, Map, OffersList, ReviewsForm,
   ReviewsList, SVGSymbols, Rating, Spinner} from '../../components';
 import {useEffect} from 'react';
 import {useAppDispatch, useAppSelector} from '../../hooks';
-import {getAppStatus, getAuthStatus, getCurrentOffer, getNearOffers} from '../../store/selectors';
+import {getAuthStatus, getCurrentOffer, getNearOffers} from '../../store/selectors';
 import {loadCurrentOffer, resetCurrentOffer} from '../../store';
 
 function Room(): JSX.Element {
   const {id} = useParams();
   const offerId = Number(id);
   const authStatus = useAppSelector(getAuthStatus);
-  const appStatus = useAppSelector(getAppStatus);
   const currentOffer = useAppSelector(getCurrentOffer);
   const nearOffers = useAppSelector(getNearOffers);
   const dispatch = useAppDispatch();
@@ -25,12 +23,8 @@ function Room(): JSX.Element {
     };
   }, [offerId, dispatch]);
 
-  if (appStatus === AppStatus.Pending) {
-    return <Spinner />;
-  }
-
   if (!currentOffer) {
-    return <NotFound />;
+    return <Spinner />;
   }
 
   const {title, isPremium, rating, type, maxAdults, city,
