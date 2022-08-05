@@ -21,7 +21,7 @@ function CitiesList(): JSX.Element {
                 href="/"
                 onClick={(evt) => {
                   evt.preventDefault();
-                  dispatch(setCity({city}));
+                  dispatch(setCity(city));
                 }}
               >
                 <span>{city}</span>
