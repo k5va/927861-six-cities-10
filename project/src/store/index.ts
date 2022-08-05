@@ -1,16 +1,5 @@
-import {configureStore} from '@reduxjs/toolkit';
-import {createAPI} from '../api';
-import {reducer} from './reducer';
+export {default as store} from '../store/store';
+export {loadOffers, checkLogin, login, logout, loadCurrentOffer, postReview} from './actions';
+export {setCity} from './app-slice/app-slice';
+export {resetCurrentOffer} from './data-slice/data-slice';
 
-const api = createAPI();
-const store = configureStore({
-  reducer,
-  middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware({
-      thunk: {
-        extraArgument: api,
-      },
-    }),
-});
-
-export {store, api};

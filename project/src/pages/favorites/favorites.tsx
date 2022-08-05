@@ -2,11 +2,12 @@ import {Link} from 'react-router-dom';
 import {Header, OffersList, SVGSymbols} from '../../components';
 import {AppRoute, OfferCardMode} from '../../const';
 import {useAppSelector} from '../../hooks';
+import {getOffers} from '../../store/selectors';
 import {Offer} from '../../types';
 import {createOffersCityMap} from '../../utils';
 
 function Favorites(): JSX.Element {
-  const {offers} = useAppSelector((state) => state);
+  const offers = useAppSelector(getOffers);
   const offersCityMap = createOffersCityMap(offers);
 
   return (

@@ -1,10 +1,11 @@
 import {Cities} from '../../const';
 import {useAppDispatch, useAppSelector} from '../../hooks';
-import {setCity} from '../../store/actions';
+import {getCity} from '../../store/selectors';
+import {setCity} from '../../store';
 
 function CitiesList(): JSX.Element {
   const dispatch = useAppDispatch();
-  const {city: activeCity} = useAppSelector((state) => state);
+  const activeCity = useAppSelector(getCity);
 
   const cities = Object.values(Cities);
 
@@ -20,7 +21,7 @@ function CitiesList(): JSX.Element {
                 href="/"
                 onClick={(evt) => {
                   evt.preventDefault();
-                  dispatch(setCity({city}));
+                  dispatch(setCity(city));
                 }}
               >
                 <span>{city}</span>

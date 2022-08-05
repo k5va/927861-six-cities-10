@@ -3,7 +3,7 @@ import {Link, useNavigate} from 'react-router-dom';
 import {SVGSymbols} from '../../components';
 import {AppRoute} from '../../const';
 import {useAppDispatch} from '../../hooks';
-import {login} from '../../store/actions';
+import {login} from '../../store';
 
 function Login(): JSX.Element {
   const [email, setEmail] = useState('');

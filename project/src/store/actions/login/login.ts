@@ -1,10 +1,8 @@
 import {createAsyncThunk} from '@reduxjs/toolkit';
 import {AxiosInstance} from 'axios';
 import {saveToken} from '../../../api';
-import {AuthStatus} from '../../../const';
-import {AppDispatch, JSONValue, State} from '../../../types';
+import {AppDispatch, JSONValue, State, User} from '../../../types';
 import {parseUser} from '../../../utils';
-import {setAuthStatus, setUser} from '../../actions';
 
 /**
  * Action for login
@@ -12,7 +10,7 @@ import {setAuthStatus, setUser} from '../../actions';
  * @param {AsyncThunkPayloadCreator} payloadCreator - action callback
  */
 const login = createAsyncThunk<
-  void, // action callback return value type
+  User, // action callback return value type
   { // _arg type
     email: string,
     password: string,
@@ -23,12 +21,11 @@ const login = createAsyncThunk<
     extra: AxiosInstance
   }
 >(
-  'app/login',
-  async (args, {dispatch, extra: api}) => {
+  'user/login',
+  async (args, {extra: api}) => {
     const {data} = await api.post<JSONValue>('/login', args);
-    dispatch(setAuthStatus({status: AuthStatus.Auth}));
-    dispatch(setUser({user: parseUser(data)}));
     saveToken(data['token'] as string);
+    return parseUser(data);
   },
 );
 

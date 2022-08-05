@@ -14,3 +14,4 @@ export {default as Rating} from './rating/rating';
 export {default as OffersSorting} from './offers-sorting/offers-sorting';
 export {default as NoOffers} from './no-offers/no-offers';
 export {default as Spinner} from './spinner/spinner';
+export {default as HistoryRouter} from './history-router/history-router';
