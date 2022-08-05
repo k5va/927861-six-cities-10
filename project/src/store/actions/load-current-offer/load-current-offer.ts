@@ -1,9 +1,7 @@
 import {createAsyncThunk} from '@reduxjs/toolkit';
 import {AxiosInstance} from 'axios';
-import {AppStatus} from '../../../const';
 import {AppDispatch, JSONValue, Offer, Review, State} from '../../../types';
 import {parseOffer, parseReview} from '../../../utils';
-import {setAppStatus} from '../../../store';
 
 /**
  * Action for loading offer from server
@@ -23,8 +21,6 @@ const loadCurrentOffer = createAsyncThunk<
 >(
   'data/loadOffer',
   async ({offerId}, {dispatch, extra: api}) => {
-    dispatch(setAppStatus({status: AppStatus.Pending}));
-
     const {data: offerData} = await api.get<JSONValue>(`/hotels/${offerId}`);
     const {data: nearOffersData} = await api.get<JSONValue[]>(`/hotels/${offerId}/nearby`);
     const {data: reviewsData} = await api.get<JSONValue[]>(`/comments/${offerId}`);

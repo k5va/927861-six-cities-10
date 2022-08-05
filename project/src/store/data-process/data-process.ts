@@ -24,10 +24,6 @@ export const dataProcess = createSlice({
     builder
       .addCase(loadOffers.fulfilled, (state, action) => {
         state.offers = action.payload;
-        //TODO: dispatch(setAppStatus({status: AppStatus.Ready}));
-      })
-      .addCase(loadOffers.rejected, (state) => {
-        // TODO: set app status error;
       })
       .addCase(loadCurrentOffer.fulfilled, (state, action) => {
         const [offer, nearOffers, reviews] = action.payload;
@@ -35,17 +31,9 @@ export const dataProcess = createSlice({
         state.currentOffer = offer;
         state.nearOffers = nearOffers;
         state.reviews = reviews;
-        //TODO: dispatch(setAppStatus({status: AppStatus.Ready}));
-      })
-      .addCase(loadCurrentOffer.rejected, (state) => {
-        // TODO: set app status error;
       })
       .addCase(postReview.fulfilled, (state, action) => {
         state.reviews = action.payload;
-        //TODO: dispatch(setAppStatus({status: AppStatus.Ready}));
-      })
-      .addCase(postReview.rejected, (state) => {
-        // TODO: set app status error;
       });
   }
 });
