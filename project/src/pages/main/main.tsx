@@ -10,6 +10,10 @@ function Main(): JSX.Element {
   const appStatus = useAppSelector(getAppStatus);
   const cityOffers = findCityOffers(city, offers);
 
+  if (appStatus === AppStatus.Pending) {
+    return <Spinner />;
+  }
+
   return (
     <>
       <SVGSymbols />
@@ -17,7 +21,6 @@ function Main(): JSX.Element {
         <Header />
         <main className="page__main page__main--index">
           <h1 className="visually-hidden">Cities</h1>
-          {appStatus === AppStatus.Pending && <Spinner />}
           <CitiesList />
           {cityOffers.length ? <CityOffers offers={cityOffers} /> : <NoOffers city={city} />}
         </main>
