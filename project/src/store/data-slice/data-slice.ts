@@ -2,12 +2,14 @@ import {createSlice} from '@reduxjs/toolkit';
 import {AppStatus, NameSpace} from '../../const';
 import {DataState} from '../../types';
 import {loadCurrentOffer, loadOffers, postReview} from '../actions';
+import loadFavorites from '../actions/load-favorites/load-favorites';
 
 const initialState: DataState = {
   offers: [],
   currentOffer: null,
   nearOffers: [],
   reviews: [],
+  favorites: [],
   appStatus: AppStatus.Pending,
 };
 
@@ -55,6 +57,16 @@ export const dataSlice = createSlice({
       })
       .addCase(postReview.fulfilled, (state, action) => {
         state.reviews = action.payload;
+        state.appStatus = AppStatus.Ready;
+      })
+      .addCase(loadFavorites.pending, (state, action) => {
+        state.appStatus = AppStatus.Pending;
+      })
+      .addCase(loadFavorites.rejected, (state, action) => {
+        state.appStatus = AppStatus.Error;
+      })
+      .addCase(loadFavorites.fulfilled, (state, action) => {
+        state.favorites = action.payload;
         state.appStatus = AppStatus.Ready;
       });
   }
