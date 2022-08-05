@@ -1,9 +1,9 @@
 import {AuthStatus} from '../../const';
 import User from '../user/user';
 
-type UserProcess = {
+type UserState = {
   authStatus: AuthStatus,
   user: User | null,
 };
 
-export default UserProcess;
+export default UserState;

@@ -1,10 +1,10 @@
-import {Offer, Review} from '../../types';
+import {Offer, Review} from '..';
 
-type DataProcess = {
+type DataState = {
   offers: Offer[];
   currentOffer: Offer | null;
   nearOffers: Offer[];
   reviews: Review[];
 };
 
-export default DataProcess;
+export default DataState;

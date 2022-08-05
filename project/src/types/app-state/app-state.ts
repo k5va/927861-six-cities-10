@@ -1,8 +1,8 @@
 import {AppStatus, Cities} from '../../const';
 
-type AppProcess = {
+type AppState = {
   city: Cities;
   appStatus: AppStatus;
 };
 
-export default AppProcess;
+export default AppState;

@@ -1,6 +1,6 @@
 import {AnyAction, createSlice} from '@reduxjs/toolkit';
 import {AppStatus, Cities, NameSpace} from '../../const';
-import {AppProcess} from '../../types';
+import {AppState} from '../../types';
 
 function isRejectedAction(action: AnyAction): boolean {
   return action.type.endsWith('rejected');
@@ -14,12 +14,12 @@ function isFulfilledAction(action: AnyAction): boolean {
   return action.type.endsWith('fulfilled');
 }
 
-const initialState: AppProcess = {
+const initialState: AppState = {
   city: Cities.Paris,
   appStatus: AppStatus.Pending,
 };
 
-export const appProcess = createSlice({
+export const appSlice = createSlice({
   name: NameSpace.App,
   initialState,
   reducers: {
@@ -42,4 +42,4 @@ export const appProcess = createSlice({
 
 });
 
-export const {setCity} = appProcess.actions;
+export const {setCity} = appSlice.actions;

@@ -1,14 +1,14 @@
 import {createSlice} from '@reduxjs/toolkit';
 import {AuthStatus, NameSpace} from '../../const';
-import {UserProcess} from '../../types';
+import {UserState} from '../../types';
 import {checkLogin, login, logout} from '../actions';
 
-const initialState: UserProcess = {
+const initialState: UserState = {
   authStatus: AuthStatus.Unknown,
   user: null,
 };
 
-export const userProcess = createSlice({
+export const userSlice = createSlice({
   name: NameSpace.User,
   initialState,
   reducers: {},

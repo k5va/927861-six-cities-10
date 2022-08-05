@@ -1,16 +1,16 @@
 import {createSlice} from '@reduxjs/toolkit';
 import {NameSpace} from '../../const';
-import {DataProcess} from '../../types';
+import {DataState} from '../../types';
 import {loadCurrentOffer, loadOffers, postReview} from '../actions';
 
-const initialState: DataProcess = {
+const initialState: DataState = {
   offers: [],
   currentOffer: null,
   nearOffers: [],
   reviews: [],
 };
 
-export const dataProcess = createSlice({
+export const dataSlice = createSlice({
   name: NameSpace.Data,
   initialState,
   reducers: {
@@ -38,5 +38,5 @@ export const dataProcess = createSlice({
   }
 });
 
-export const {resetCurrentOffer} = dataProcess.actions;
+export const {resetCurrentOffer} = dataSlice.actions;
 
