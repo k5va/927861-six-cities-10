@@ -1,22 +1,9 @@
-import {AnyAction, createSlice} from '@reduxjs/toolkit';
-import {AppStatus, Cities, NameSpace} from '../../const';
+import {createSlice} from '@reduxjs/toolkit';
+import {Cities, NameSpace} from '../../const';
 import {AppState} from '../../types';
-
-function isRejectedAction(action: AnyAction): boolean {
-  return action.type.endsWith('rejected');
-}
-
-function isPendingAction(action: AnyAction): boolean {
-  return action.type.endsWith('pending');
-}
-
-function isFulfilledAction(action: AnyAction): boolean {
-  return action.type.endsWith('fulfilled');
-}
 
 const initialState: AppState = {
   city: Cities.Paris,
-  appStatus: AppStatus.Pending,
 };
 
 export const appSlice = createSlice({
@@ -27,19 +14,6 @@ export const appSlice = createSlice({
       state.city = action.payload;
     },
   },
-  extraReducers(builder) {
-    builder
-      .addMatcher(isFulfilledAction, (state) => {
-        state.appStatus = AppStatus.Ready;
-      })
-      .addMatcher(isRejectedAction, (state) => {
-        state.appStatus = AppStatus.Error;
-      })
-      .addMatcher(isPendingAction, (state) => {
-        state.appStatus = AppStatus.Pending;
-      });
-  }
-
 });
 
 export const {setCity} = appSlice.actions;
