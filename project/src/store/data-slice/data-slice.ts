@@ -68,9 +68,15 @@ export const dataSlice = createSlice({
         state.appStatus = AppStatus.Error;
       })
       .addCase(updateFavorites.fulfilled, (state, action) => {
-        const {id: offerId} = action.payload;
+        // update offer in store
+        const {id: offerId, isFavorite} = action.payload;
         const index = state.offers.findIndex(({id}) => id === offerId);
         state.offers[index] = action.payload;
+
+        if (!isFavorite) { //remove from favorites in store
+          const favIndex = state.favorites.findIndex(({id}) => id === offerId);
+          state.favorites.splice(favIndex, 1);
+        }
       });
   }
 });
