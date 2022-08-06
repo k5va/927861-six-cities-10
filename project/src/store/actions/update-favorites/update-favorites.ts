@@ -13,7 +13,7 @@ const updateFavorites = createAsyncThunk<
   Offer, // action callback return value type
   { // _arg type
     offerId: number,
-    operation: FavoritesOperation,
+    isFavorite: boolean,
   },
   { // thunkAPI params types
     dispatch: AppDispatch,
@@ -22,8 +22,10 @@ const updateFavorites = createAsyncThunk<
   }
 >(
   'data/updateFavorites',
-  async ({offerId, operation}, {extra: api}) => {
-    const {data} = await api.post(`/favorite/${offerId}/${operation}`);
+  async ({offerId, isFavorite}, {extra: api}) => {
+    const {data} = await api.post(
+      `/favorite/${offerId}/${isFavorite ? FavoritesOperation.Add : FavoritesOperation.Remove}`
+    );
     return parseOffer(data);
   },
 );
