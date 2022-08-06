@@ -1,11 +1,12 @@
 import {Link} from 'react-router-dom';
 import {AppRoute, AuthStatus} from '../../const';
 import {useAppDispatch, useAppSelector, useFavoritesCount} from '../../hooks';
-import {getAuthStatus} from '../../store/selectors';
+import {getAuthStatus, getUser} from '../../store/selectors';
 import {logout} from '../../store';
 
 function Header(): JSX.Element {
   const authStatus = useAppSelector(getAuthStatus);
+  const user = useAppSelector(getUser);
   const favoritesCount = useFavoritesCount();
   const dispatch = useAppDispatch();
 
@@ -34,7 +35,7 @@ function Header(): JSX.Element {
                   <li className="header__nav-item user">
                     <Link to={AppRoute.Favorites} className="header__nav-link header__nav-link--profile">
                       <div className="header__avatar-wrapper user__avatar-wrapper"></div>
-                      <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
+                      <span className="header__user-name user__name">{user?.email}</span>
                       <span className="header__favorite-count">{favoritesCount}</span>
                     </Link>
                   </li>
