@@ -1,16 +1,17 @@
 import {useParams} from 'react-router-dom';
-import {AuthStatus, OfferCardMode} from '../../const';
+import {AppStatus, AuthStatus, OfferCardMode} from '../../const';
 import {Header, Map, OffersList, ReviewsForm,
   ReviewsList, SVGSymbols, Rating, Spinner} from '../../components';
 import {useEffect} from 'react';
 import {useAppDispatch, useAppSelector} from '../../hooks';
-import {getAuthStatus, getCurrentOffer, getNearOffers} from '../../store/selectors';
+import {getAppStatus, getAuthStatus, getCurrentOffer, getNearOffers} from '../../store/selectors';
 import {loadCurrentOffer, resetCurrentOffer} from '../../store';
 
 function Room(): JSX.Element {
   const {id} = useParams();
   const offerId = Number(id);
   const authStatus = useAppSelector(getAuthStatus);
+  const appStatus = useAppSelector(getAppStatus);
   const currentOffer = useAppSelector(getCurrentOffer);
   const nearOffers = useAppSelector(getNearOffers);
   const dispatch = useAppDispatch();
@@ -23,7 +24,7 @@ function Room(): JSX.Element {
     };
   }, [offerId, dispatch]);
 
-  if (!currentOffer) {
+  if (!currentOffer || appStatus === AppStatus.Pending) {
     return <Spinner />;
   }
 
