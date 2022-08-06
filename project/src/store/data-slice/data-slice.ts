@@ -68,9 +68,6 @@ export const dataSlice = createSlice({
         state.favorites = action.payload;
         state.appStatus = AppStatus.Ready;
       })
-      .addCase(updateFavorites.pending, (state, action) => {
-        state.appStatus = AppStatus.Pending;
-      })
       .addCase(updateFavorites.rejected, (state, action) => {
         state.appStatus = AppStatus.Error;
       })
@@ -78,8 +75,6 @@ export const dataSlice = createSlice({
         const {id: offerId} = action.payload;
         const index = state.offers.findIndex(({id}) => id === offerId);
         state.offers[index] = action.payload;
-
-        state.appStatus = AppStatus.Ready;
       });
   }
 });
