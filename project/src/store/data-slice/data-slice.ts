@@ -48,15 +48,11 @@ export const dataSlice = createSlice({
         state.reviews = reviews;
         state.appStatus = AppStatus.Ready;
       })
-      .addCase(postReview.pending, (state, action) => {
-        state.appStatus = AppStatus.Pending;
-      })
       .addCase(postReview.rejected, (state, action) => {
         state.appStatus = AppStatus.Error;
       })
       .addCase(postReview.fulfilled, (state, action) => {
         state.reviews = action.payload;
-        state.appStatus = AppStatus.Ready;
       })
       .addCase(loadFavorites.pending, (state, action) => {
         state.appStatus = AppStatus.Pending;
