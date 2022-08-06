@@ -1,10 +1,18 @@
 import {Favorites, Login, Main, NotFound, Room} from '../../pages';
 import {Route, Routes} from 'react-router-dom';
 import {AppRoute, AuthStatus} from '../../const';
-import {PrivateRoute, HistoryRouter} from '../../components';
+import {PrivateRoute, HistoryRouter, Spinner} from '../../components';
 import {browserHistory} from '../../browser-history';
+import {useAppSelector} from '../../hooks';
+import {getAuthStatus} from '../../store/selectors';
 
 function App(): JSX.Element {
+  const authStatus = useAppSelector(getAuthStatus);
+
+  if (authStatus === AuthStatus.Unknown) {
+    return <Spinner />;
+  }
+
   return (
     <HistoryRouter history={browserHistory}>
       <Routes>
