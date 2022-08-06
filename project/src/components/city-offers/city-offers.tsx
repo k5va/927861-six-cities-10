@@ -1,4 +1,4 @@
-import {OffersList, Map, OffersSorting, Spinner, NoOffers} from '../../components';
+import {OffersList, Map, OffersSorting, NoOffers} from '../../components';
 import {Offer} from '../../types';
 import {AppStatus, OfferCardMode, OffersSortingType} from '../../const';
 import {useCallback, useMemo, useState} from 'react';
@@ -23,10 +23,6 @@ function CityOffers(): JSX.Element {
     () => sortOffers(findCityOffers(cityName, offers), activeSorting),
     [cityName, offers, activeSorting]
   );
-
-  if (appStatus === AppStatus.Pending) {
-    return <Spinner />;
-  }
 
   if (appStatus === AppStatus.Ready && filteredOffers.length === 0) {
     return <NoOffers city={cityName} />;
