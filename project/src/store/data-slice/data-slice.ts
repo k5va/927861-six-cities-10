@@ -73,7 +73,10 @@ export const dataSlice = createSlice({
         const index = state.offers.findIndex(({id}) => id === offerId);
         state.offers[index] = action.payload;
 
-        if (!isFavorite) { //remove from favorites in store
+        // update favorites in store
+        if (isFavorite) {
+          state.favorites.push(action.payload);
+        } else {
           const favIndex = state.favorites.findIndex(({id}) => id === offerId);
           state.favorites.splice(favIndex, 1);
         }
