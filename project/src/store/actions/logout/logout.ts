@@ -2,6 +2,7 @@ import {createAsyncThunk} from '@reduxjs/toolkit';
 import {AxiosInstance} from 'axios';
 import {dropToken} from '../../../api';
 import {AppDispatch, State} from '../../../types';
+import loadOffers from '../load-offers/load-offers';
 
 /**
  * Action for logout
@@ -18,9 +19,10 @@ const checkLogin = createAsyncThunk<
   }
 >(
   'app/logout',
-  async (_arg, {extra: api}) => {
+  async (_arg, {dispatch, extra: api}) => {
     await api.delete('/logout');
     dropToken();
+    dispatch(loadOffers());
   },
 );
 
