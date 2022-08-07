@@ -67,15 +67,26 @@ export const dataSlice = createSlice({
       .addCase(updateFavorites.rejected, (state, action) => {
         state.appStatus = AppStatus.Error;
       })
-      .addCase(updateFavorites.fulfilled, (state, action) => {
+      .addCase(updateFavorites.fulfilled, (state, {payload: updatedOffer}) => {
         // update offer in store
-        const {id: offerId, isFavorite} = action.payload;
+        const {id: offerId, isFavorite} = updatedOffer;
         const index = state.offers.findIndex(({id}) => id === offerId);
-        state.offers[index] = action.payload;
+        state.offers[index] = updatedOffer;
+
+        // update current offer
+        if (state.currentOffer?.id === offerId) {
+          state.currentOffer = updatedOffer;
+        }
+
+        //update near offer
+        const nearIndex = state.nearOffers.findIndex(({id}) => id === offerId);
+        if (nearIndex >= 0) {
+          state.nearOffers[nearIndex] = updatedOffer;
+        }
 
         // update favorites in store
         if (isFavorite) {
-          state.favorites.push(action.payload);
+          state.favorites.push(updatedOffer);
         } else {
           const favIndex = state.favorites.findIndex(({id}) => id === offerId);
           state.favorites.splice(favIndex, 1);
