@@ -1,13 +1,26 @@
-import {Link} from 'react-router-dom';
+import {Link, useNavigate} from 'react-router-dom';
 import {Rating} from '../../components';
-import {useAppDispatch} from '../../hooks';
+import {useAppDispatch, useAppSelector} from '../../hooks';
 import {updateFavorites} from '../../store/actions';
 import {OfferCardProps} from './types';
 import {memo} from 'react';
+import {getAuthStatus} from '../../store/selectors';
+import {AppRoute, AuthStatus} from '../../const';
 
 function OfferCard({offer, mode, onSelected}: OfferCardProps): JSX.Element {
   const {id, isFavorite, isPremium, previewImage, title, price, type, rating} = offer;
+  const authStatus = useAppSelector(getAuthStatus);
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+
+  const onFavoritesButtonClick = () => {
+    if (authStatus !== AuthStatus.Auth) {
+      navigate(AppRoute.Login);
+      return;
+    }
+
+    dispatch(updateFavorites({offerId: id, isFavorite: !isFavorite}));
+  };
 
   return (
     <article
@@ -33,9 +46,7 @@ function OfferCard({offer, mode, onSelected}: OfferCardProps): JSX.Element {
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
           <button
-            onClick={() => {
-              dispatch(updateFavorites({offerId: id, isFavorite: !isFavorite}));
-            }}
+            onClick={onFavoritesButtonClick}
             className={`
               place-card__bookmark-button
               ${isFavorite && 'place-card__bookmark-button--active'}
