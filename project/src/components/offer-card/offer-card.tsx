@@ -1,26 +1,10 @@
-import {Link, useNavigate} from 'react-router-dom';
-import {Rating} from '../../components';
-import {useAppDispatch, useAppSelector} from '../../hooks';
-import {updateFavorites} from '../../store/actions';
+import {Link} from 'react-router-dom';
+import {Rating, FavoritesButton} from '../../components';
 import {OfferCardProps} from './types';
 import {memo} from 'react';
-import {getAuthStatus} from '../../store/selectors';
-import {AppRoute, AuthStatus} from '../../const';
 
 function OfferCard({offer, mode, onSelected}: OfferCardProps): JSX.Element {
   const {id, isFavorite, isPremium, previewImage, title, price, type, rating} = offer;
-  const authStatus = useAppSelector(getAuthStatus);
-  const dispatch = useAppDispatch();
-  const navigate = useNavigate();
-
-  const onFavoritesButtonClick = () => {
-    if (authStatus !== AuthStatus.Auth) {
-      navigate(AppRoute.Login);
-      return;
-    }
-
-    dispatch(updateFavorites({offerId: id, isFavorite: !isFavorite}));
-  };
 
   return (
     <article
@@ -45,20 +29,10 @@ function OfferCard({offer, mode, onSelected}: OfferCardProps): JSX.Element {
             <b className="place-card__price-value">&euro;{price}</b>
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
-          <button
-            onClick={onFavoritesButtonClick}
-            className={`
-              place-card__bookmark-button
-              ${isFavorite && 'place-card__bookmark-button--active'}
-              button
-            `}
-            type="button"
-          >
-            <svg className="place-card__bookmark-icon" width="18" height="19">
-              <use xlinkHref="#icon-bookmark"></use>
-            </svg>
-            <span className="visually-hidden">To bookmarks</span>
-          </button>
+          <FavoritesButton
+            offerId={id} isFavorite={isFavorite}
+            className="place-card__bookmark" width="18" height="19"
+          />
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">

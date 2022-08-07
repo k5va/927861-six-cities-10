@@ -1,7 +1,7 @@
 import {useParams} from 'react-router-dom';
 import {AppStatus, AuthStatus, OfferCardMode} from '../../const';
 import {Header, Map, OffersList, ReviewsForm,
-  ReviewsList, SVGSymbols, Rating, Spinner} from '../../components';
+  ReviewsList, SVGSymbols, Rating, Spinner, FavoritesButton} from '../../components';
 import {useEffect} from 'react';
 import {useAppDispatch, useAppSelector} from '../../hooks';
 import {getAppStatus, getAuthStatus, getCurrentOffer, getNearOffers} from '../../store/selectors';
@@ -28,7 +28,7 @@ function Room(): JSX.Element {
     return <Spinner />;
   }
 
-  const {title, isPremium, rating, type, maxAdults, city,
+  const {title, isFavorite, isPremium, rating, type, maxAdults, city,
     bedrooms, price, host, goods, description, images} = currentOffer;
 
   return (
@@ -59,12 +59,10 @@ function Room(): JSX.Element {
                 }
                 <div className="property__name-wrapper">
                   <h1 className="property__name">{title}</h1>
-                  <button className="property__bookmark-button button" type="button">
-                    <svg className="property__bookmark-icon" width="31" height="33">
-                      <use xlinkHref="#icon-bookmark"></use>
-                    </svg>
-                    <span className="visually-hidden">To bookmarks</span>
-                  </button>
+                  <FavoritesButton
+                    offerId={offerId} isFavorite={isFavorite}
+                    className="property__bookmark" width="31" height="33"
+                  />
                 </div>
                 <div className="property__rating rating">
                   <div className="property__stars rating__stars">

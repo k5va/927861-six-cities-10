@@ -16,3 +16,4 @@ export {default as NoOffers} from './no-offers/no-offers';
 export {default as Spinner} from './spinner/spinner';
 export {default as HistoryRouter} from './history-router/history-router';
 export {default as NoFavorites} from './no-favorites/no-favorites';
+export {default as FavoritesButton} from './favorites-button/favorites-button';
