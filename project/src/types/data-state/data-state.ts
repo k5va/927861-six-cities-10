@@ -7,6 +7,7 @@ type DataState = {
   nearOffers: Offer[];
   reviews: Review[];
   appStatus: AppStatus;
+  favorites: Offer[];
 };
 
 export default DataState;

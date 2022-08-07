@@ -1,14 +1,27 @@
+import {useEffect} from 'react';
 import {Link} from 'react-router-dom';
-import {Header, OffersList, SVGSymbols} from '../../components';
-import {AppRoute, OfferCardMode} from '../../const';
-import {useAppSelector} from '../../hooks';
-import {getOffers} from '../../store/selectors';
+import {Header, NoFavorites, OffersList, Spinner, SVGSymbols} from '../../components';
+import {AppRoute, AppStatus, OfferCardMode} from '../../const';
+import {useAppDispatch, useAppSelector} from '../../hooks';
+import {loadFavorites} from '../../store/actions';
+import {getAppStatus, getFavorites} from '../../store/selectors';
 import {Offer} from '../../types';
 import {createOffersCityMap} from '../../utils';
 
 function Favorites(): JSX.Element {
-  const offers = useAppSelector(getOffers);
-  const offersCityMap = createOffersCityMap(offers);
+  const favorites = useAppSelector(getFavorites);
+  const appStatus = useAppSelector(getAppStatus);
+  const dispatch = useAppDispatch();
+  const offersCityMap = createOffersCityMap(favorites);
+
+  // effect for loading favorites
+  useEffect(() => {
+    dispatch(loadFavorites());
+  }, [dispatch]);
+
+  if (appStatus === AppStatus.Pending) {
+    return <Spinner />;
+  }
 
   return (
     <>
@@ -17,33 +30,35 @@ function Favorites(): JSX.Element {
         <Header />
         <main className="page__main page__main--favorites">
           <div className="page__favorites-container container">
-            <section className="favorites">
-              <h1 className="favorites__title">Saved listing</h1>
-              <ul className="favorites__list">
-                {
-                  [...offersCityMap.keys()].map((cityName) => (
-                    <li key={cityName} className="favorites__locations-items">
-                      <div className="favorites__locations locations locations--current">
-                        <div className="locations__item">
-                          <Link to={AppRoute.Root} className="locations__item-link">
-                            <span>{cityName}</span>
-                          </Link>
+            {favorites.length > 0 ?
+              <section className="favorites">
+                <h1 className="favorites__title">Saved listing</h1>
+                <ul className="favorites__list">
+                  {
+                    [...offersCityMap.keys()].map((cityName) => (
+                      <li key={cityName} className="favorites__locations-items">
+                        <div className="favorites__locations locations locations--current">
+                          <div className="locations__item">
+                            <Link to={AppRoute.Root} className="locations__item-link">
+                              <span>{cityName}</span>
+                            </Link>
+                          </div>
                         </div>
-                      </div>
-                      <div className="favorites__places">
-                        {
-                          offersCityMap.has(cityName) &&
-                            <OffersList
-                              offers={offersCityMap.get(cityName) as Offer[]}
-                              mode={OfferCardMode.Favorites}
-                            />
-                        }
-                      </div>
-                    </li>
-                  ))
-                }
-              </ul>
-            </section>
+                        <div className="favorites__places">
+                          {
+                            offersCityMap.has(cityName) &&
+                              <OffersList
+                                offers={offersCityMap.get(cityName) as Offer[]}
+                                mode={OfferCardMode.Favorites}
+                              />
+                          }
+                        </div>
+                      </li>
+                    ))
+                  }
+                </ul>
+              </section> :
+              <NoFavorites />}
           </div>
         </main>
         <footer className="footer container">
