@@ -1,20 +1,13 @@
 import {AuthStatus} from '../../const';
-import {User, UserState} from '../../types';
+import {UserState} from '../../types';
 import {userSlice} from './user-slice';
 import {checkLogin, login, logout} from '../actions';
-
-const makeFakeUser = (): User => ({
-  id: 1,
-  name: 'John Doe',
-  isPro: false,
-  email: 'john@mail.com',
-  avatarUrl: '...',
-});
+import {mockUser} from '../../mocks';
 
 describe('Tests of user slice reducer', () => {
   it('checkLogin.fulfilled should set user and AuthStatus.Auth', async () => {
 
-    const user = makeFakeUser();
+    const user = mockUser();
 
     const state: UserState = {
       user: null,
@@ -42,7 +35,7 @@ describe('Tests of user slice reducer', () => {
 
   it('login.fulfilled should set user and AuthStatus.Auth', async () => {
 
-    const user = makeFakeUser();
+    const user = mockUser();
 
     const state: UserState = {
       user: null,
@@ -70,7 +63,7 @@ describe('Tests of user slice reducer', () => {
 
   it('logout.fulfilled should set user = null and AuthStatus.NoAuth', async () => {
 
-    const user = makeFakeUser();
+    const user = mockUser();
 
     const state: UserState = {
       user,
