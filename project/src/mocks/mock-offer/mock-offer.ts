@@ -3,13 +3,13 @@ import {mockCity} from '..';
 import {OfferType} from '../../const';
 import {Offer} from '../../types';
 
-const FAKE_ARRAY_SIZE = 10;
+const MAX_FAKE_ARRAY_SIZE = 10;
 
 const mockOffer = (): Offer => ({
   id: datatype.number(),
   city: mockCity(),
   previewImage: system.filePath(),
-  images: Array.from(new Array(FAKE_ARRAY_SIZE), () => system.filePath()),
+  images: Array.from(new Array(datatype.number(MAX_FAKE_ARRAY_SIZE)), () => system.filePath()),
   title: name.title(),
   isFavorite: datatype.boolean(),
   isPremium: datatype.boolean(),
@@ -18,7 +18,7 @@ const mockOffer = (): Offer => ({
   bedrooms: datatype.number(),
   maxAdults: datatype.number(),
   price: datatype.number(),
-  goods: Array.from(new Array(FAKE_ARRAY_SIZE), () => datatype.string()),
+  goods: Array.from(new Array(datatype.number(MAX_FAKE_ARRAY_SIZE)), () => datatype.string()),
   description: datatype.string(),
   location: {
     latitude: datatype.number(),
