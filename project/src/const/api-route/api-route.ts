@@ -3,6 +3,7 @@ enum ApiRoute {
   Offers = '/hotels',
   Reviews = '/comments',
   Near = '/nearby',
+  Favorites = '/favorite',
 }
 
 export default ApiRoute;

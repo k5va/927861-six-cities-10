@@ -1,5 +1,6 @@
 import {createAsyncThunk} from '@reduxjs/toolkit';
 import {AxiosInstance} from 'axios';
+import {ApiRoute} from '../../../const';
 import {AppDispatch, JSONValue, Offer, State} from '../../../types';
 import {parseOffer} from '../../../utils';
 
@@ -19,7 +20,7 @@ const loadFavorites = createAsyncThunk<
 >(
   'data/loadFavorites',
   async (_arg, {dispatch, extra: api}) => {
-    const {data} = await api.get<JSONValue[]>('/favorite');
+    const {data} = await api.get<JSONValue[]>(ApiRoute.Favorites);
     return data.map(parseOffer);
   },
 );
