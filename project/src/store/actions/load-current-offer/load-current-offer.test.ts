@@ -7,7 +7,7 @@ import {State} from '../../../types';
 import loadCurrentOffer from './load-current-offer';
 import {StatusCodes} from 'http-status-codes';
 import {ApiRoute} from '../../../const';
-import {mockId, mockOffer, mockOffers} from '../../../mocks';
+import {mockId, mockOffer, mockOffers, mockReviews} from '../../../mocks';
 
 describe('Tests of loadCurrentOffer action', () => {
   const mockAPI = new MockAdapter(api);
@@ -28,8 +28,8 @@ describe('Tests of loadCurrentOffer action', () => {
       .reply(StatusCodes.OK, mockOffer())
       .onGet(`${ApiRoute.Offers}/${offerId}/${ApiRoute.Near}`)
       .reply(StatusCodes.OK, mockOffers())
-      .onGet(`${ApiRoute.Reviews}${offerId}`)
-      .reply(StatusCodes.OK, mockOffers());
+      .onGet(`${ApiRoute.Reviews}/${offerId}`)
+      .reply(StatusCodes.OK, mockReviews());
 
     Storage.prototype.getItem = jest.fn();
 
