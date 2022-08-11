@@ -12,7 +12,7 @@ const store = mockStore({
   [NameSpace.User]: {authStatus: AuthStatus.Auth},
 });
 
-describe('Component: OfferCard', () => {
+describe('Component: OffersList', () => {
   it('should render correctly', () => {
     const history = createMemoryHistory();
     const offers = mockOffers();
