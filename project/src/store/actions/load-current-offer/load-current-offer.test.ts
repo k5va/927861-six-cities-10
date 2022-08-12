@@ -26,7 +26,7 @@ describe('Tests of loadCurrentOffer action', () => {
     mockAPI
       .onGet(`${ApiRoute.Offers}/${offerId}`)
       .reply(StatusCodes.OK, mockOffer())
-      .onGet(`${ApiRoute.Offers}/${offerId}/${ApiRoute.Near}`)
+      .onGet(`${ApiRoute.Offers}/${offerId}${ApiRoute.Near}`)
       .reply(StatusCodes.OK, mockOffers())
       .onGet(`${ApiRoute.Reviews}/${offerId}`)
       .reply(StatusCodes.OK, mockReviews());

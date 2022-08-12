@@ -26,7 +26,7 @@ const loadCurrentOffer = createAsyncThunk<
     try {
       const {data: offerData} = await api.get<JSONValue>(`${ApiRoute.Offers}/${offerId}`);
       const {data: nearOffersData} = await api.get<JSONValue[]>(
-        `${ApiRoute.Offers}/${offerId}/${ApiRoute.Near}`
+        `${ApiRoute.Offers}/${offerId}${ApiRoute.Near}`
       );
       const {data: reviewsData} = await api.get<JSONValue[]>(`${ApiRoute.Reviews}/${offerId}`);
 
