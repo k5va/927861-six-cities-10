@@ -1,5 +1,6 @@
 import {createAsyncThunk} from '@reduxjs/toolkit';
 import {AxiosInstance} from 'axios';
+import {ApiRoute} from '../../../const';
 import {AppDispatch, JSONValue, State, User} from '../../../types';
 import {parseUser} from '../../../utils';
 
@@ -19,7 +20,7 @@ const checkLogin = createAsyncThunk<
 >(
   'user/checkLogin',
   async (_arg, {extra: api}) => {
-    const {data} = await api.get<JSONValue>('/login');
+    const {data} = await api.get<JSONValue>(ApiRoute.Login);
     return parseUser(data);
   },
 );

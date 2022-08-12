@@ -1,6 +1,7 @@
 import {createAsyncThunk} from '@reduxjs/toolkit';
 import {AxiosInstance} from 'axios';
 import {saveToken} from '../../../api';
+import { ApiRoute } from '../../../const';
 import {AppDispatch, JSONValue, State, User} from '../../../types';
 import {parseUser} from '../../../utils';
 
@@ -23,7 +24,7 @@ const login = createAsyncThunk<
 >(
   'user/login',
   async (args, {extra: api}) => {
-    const {data} = await api.post<JSONValue>('/login', args);
+    const {data} = await api.post<JSONValue>(ApiRoute.Login, args);
     saveToken(data['token'] as string);
     return parseUser(data);
   },

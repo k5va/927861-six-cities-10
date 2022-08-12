@@ -1,5 +1,6 @@
 import {createAsyncThunk} from '@reduxjs/toolkit';
 import {AxiosInstance} from 'axios';
+import { ApiRoute } from '../../../const';
 import {AppDispatch, JSONValue, Offer, State} from '../../../types';
 import {parseOffer} from '../../../utils';
 
@@ -19,7 +20,7 @@ const loadOffers = createAsyncThunk<
 >(
   'data/loadOffers',
   async (_arg, {dispatch, extra: api}) => {
-    const {data} = await api.get<JSONValue[]>('/hotels');
+    const {data} = await api.get<JSONValue[]>(ApiRoute.Offers);
     return data.map(parseOffer);
   },
 );

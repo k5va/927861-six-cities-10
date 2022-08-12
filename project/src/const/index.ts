@@ -9,3 +9,4 @@ export {default as AppStatus} from './app-status/app-status';
 export {default as AUTH_TOKEN_KEY_NAME} from './auth-token-key-name/auth-token-key-name';
 export {default as NameSpace} from './name-space/name-space';
 export {default as FavoritesOperation} from './favorites-operation/favorites-operation';
+export {default as ApiRoute} from './api-route/api-route';

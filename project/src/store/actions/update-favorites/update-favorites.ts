@@ -1,6 +1,6 @@
 import {createAsyncThunk} from '@reduxjs/toolkit';
 import {AxiosInstance} from 'axios';
-import {FavoritesOperation} from '../../../const';
+import {ApiRoute, FavoritesOperation} from '../../../const';
 import {AppDispatch, Offer, State} from '../../../types';
 import {parseOffer} from '../../../utils';
 
@@ -24,7 +24,9 @@ const updateFavorites = createAsyncThunk<
   'data/updateFavorites',
   async ({offerId, isFavorite}, {extra: api}) => {
     const {data} = await api.post(
-      `/favorite/${offerId}/${isFavorite ? FavoritesOperation.Add : FavoritesOperation.Remove}`
+      `${ApiRoute.Favorites}/${offerId}/${isFavorite
+        ? FavoritesOperation.Add
+        : FavoritesOperation.Remove}`
     );
     return parseOffer(data);
   },
