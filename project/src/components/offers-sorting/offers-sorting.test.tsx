@@ -29,7 +29,7 @@ describe('Component: OffersSorting', () => {
       </HistoryRouter>
     );
 
-    await screen.getAllByRole('listitem').at(-1)?.click();
+    await screen.getAllByRole('listitem')[Object.keys(OffersSortingType).length - 1]?.click();
     expect(onSortingChange).toBeCalled();
   });
 });
