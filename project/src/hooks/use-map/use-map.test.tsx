@@ -3,7 +3,7 @@ import {Map} from 'leaflet';
 import {useRef} from 'react';
 import {useMap} from '../../hooks';
 
-describe('Hook: useFavoritesCount', () => {
+describe('Hook: useMap', () => {
   it('should return Map object', () => {
     const {result} = renderHook(
       () => {
