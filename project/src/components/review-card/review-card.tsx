@@ -1,8 +1,9 @@
 import {Rating} from '../../components';
+import {formatDate} from '../../utils';
 import {ReviewCardProps} from './types';
 
 function ReviewCard({review}: ReviewCardProps): JSX.Element {
-  const {user, comment, rating} = review;
+  const {user, comment, rating, date} = review;
   const {avatarUrl, name} = user;
 
   return (
@@ -20,7 +21,7 @@ function ReviewCard({review}: ReviewCardProps): JSX.Element {
           </div>
         </div>
         <p className="reviews__text">{comment}</p>
-        <time className="reviews__time" dateTime="2019-04-24">April 2019</time>
+        <time className="reviews__time" dateTime={date}>{formatDate(date)}</time>
       </div>
     </li>
   );
