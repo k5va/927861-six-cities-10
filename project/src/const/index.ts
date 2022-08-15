@@ -11,3 +11,4 @@ export {default as NameSpace} from './name-space/name-space';
 export {default as FavoritesOperation} from './favorites-operation/favorites-operation';
 export {default as ApiRoute} from './api-route/api-route';
 export {default as MAX_OFFER_IMAGES_NUM} from './max-offer-images-num/max-offer-images-num';
+export {default as ReviewLength} from './review-length/review-length';

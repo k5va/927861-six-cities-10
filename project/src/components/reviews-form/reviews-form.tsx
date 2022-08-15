@@ -1,5 +1,5 @@
 import React, {ChangeEvent, useState} from 'react';
-import {ReviewRate} from '../../const';
+import {ReviewLength, ReviewRate} from '../../const';
 import {useAppDispatch} from '../../hooks';
 import {postReview} from '../../store';
 import {ReviewsFormProps} from './types';
@@ -11,12 +11,17 @@ function ReviewsForm({offerId}: ReviewsFormProps): JSX.Element {
 
   const onRateChange = (evt: ChangeEvent<HTMLInputElement>) => setRate(Number(evt.target.value));
   const onTextChange = (evt: ChangeEvent<HTMLTextAreaElement>) => setText(evt.target.value);
+  const clearForm = () => {
+    setText('');
+    setRate(ReviewRate.get('terribly') as number);
+  };
 
   return (
     <form
       onSubmit={(evt) => {
         evt.preventDefault();
         dispatch(postReview({offerId: offerId, comment: text, rating: currentRate}));
+        clearForm();
       }}
       className="reviews__form form" action="#" method="post"
     >
@@ -46,15 +51,25 @@ function ReviewsForm({offerId}: ReviewsFormProps): JSX.Element {
       <textarea
         value={text}
         onChange={onTextChange}
+        minLength={ReviewLength.Min}
+        maxLength={ReviewLength.Max}
+        required
         className="reviews__textarea form__textarea" id="review" name="review"
         placeholder="Tell how was your stay, what you like and what can be improved"
       >
       </textarea>
       <div className="reviews__button-wrapper">
         <p className="reviews__help">
-          To submit review please make sure to set <span className="reviews__star">rating</span> and describe your stay with at least <b className="reviews__text-amount">50 characters</b>.
+          To submit review please make sure to set <span className="reviews__star">rating</span> and describe your stay with at least
+          <b className="reviews__text-amount"> {ReviewLength.Min} characters</b>.
         </p>
-        <button className="reviews__submit form__submit button" type="submit">Submit</button>
+        <button
+          disabled={text.length < ReviewLength.Min || text.length > ReviewLength.Max }
+          className="reviews__submit form__submit button"
+          type="submit"
+        >
+            Submit
+        </button>
       </div>
     </form>
   );
