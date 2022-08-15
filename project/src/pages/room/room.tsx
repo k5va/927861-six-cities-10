@@ -1,5 +1,5 @@
 import {useParams} from 'react-router-dom';
-import {AppStatus, AuthStatus, OfferCardMode} from '../../const';
+import {AppStatus, AuthStatus, MAX_OFFER_IMAGES_NUM, OfferCardMode} from '../../const';
 import {Header, Map, OffersList, ReviewsForm,
   ReviewsList, SVGSymbols, Rating, Spinner, FavoritesButton} from '../../components';
 import {useEffect} from 'react';
@@ -40,7 +40,7 @@ function Room(): JSX.Element {
           <section className="property">
             <div className="property__gallery-container container">
               <div className="property__gallery">
-                {images.map((src) =>
+                {images.slice(0, MAX_OFFER_IMAGES_NUM).map((src) =>
                   (
                     <div key={src} className="property__image-wrapper">
                       <img className="property__image" src={src} alt={title} />
