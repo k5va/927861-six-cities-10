@@ -1,27 +1,39 @@
 import React, {ChangeEvent, useState} from 'react';
-import {ReviewLength, ReviewRate} from '../../const';
-import {useAppDispatch} from '../../hooks';
+import {AppStatus, ReviewLength, ReviewRate} from '../../const';
+import {useAppDispatch, useAppSelector} from '../../hooks';
 import {postReview} from '../../store';
+import {getAppStatus} from '../../store/selectors';
 import {ReviewsFormProps} from './types';
 
+const DEFAULT_RATE = ReviewRate.get('terribly') as number;
+const DEFAULT_TEXT = '';
+
 function ReviewsForm({offerId}: ReviewsFormProps): JSX.Element {
-  const [text, setText] = useState('');
-  const [currentRate, setRate] = useState(ReviewRate.get('terribly') as number);
+  const [text, setText] = useState(DEFAULT_TEXT);
+  const [currentRate, setRate] = useState(DEFAULT_RATE);
   const dispatch = useAppDispatch();
+  const appStatus = useAppSelector(getAppStatus);
 
   const onRateChange = (evt: ChangeEvent<HTMLInputElement>) => setRate(Number(evt.target.value));
   const onTextChange = (evt: ChangeEvent<HTMLTextAreaElement>) => setText(evt.target.value);
-  const clearForm = () => {
-    setText('');
-    setRate(ReviewRate.get('terribly') as number);
+  const resetForm = () => {
+    if (text !== DEFAULT_TEXT) {
+      setText(DEFAULT_TEXT);
+    }
+    if (currentRate !== DEFAULT_RATE) {
+      setRate(DEFAULT_RATE);
+    }
   };
+
+  if (appStatus === AppStatus.Done) { // clear form fields
+    resetForm();
+  }
 
   return (
     <form
       onSubmit={(evt) => {
         evt.preventDefault();
         dispatch(postReview({offerId: offerId, comment: text, rating: currentRate}));
-        clearForm();
       }}
       className="reviews__form form" action="#" method="post"
     >
@@ -53,6 +65,7 @@ function ReviewsForm({offerId}: ReviewsFormProps): JSX.Element {
         onChange={onTextChange}
         minLength={ReviewLength.Min}
         maxLength={ReviewLength.Max}
+        disabled={appStatus === AppStatus.Pending}
         required
         className="reviews__textarea form__textarea" id="review" name="review"
         placeholder="Tell how was your stay, what you like and what can be improved"
@@ -64,7 +77,11 @@ function ReviewsForm({offerId}: ReviewsFormProps): JSX.Element {
           <b className="reviews__text-amount"> {ReviewLength.Min} characters</b>.
         </p>
         <button
-          disabled={text.length < ReviewLength.Min || text.length > ReviewLength.Max }
+          disabled={
+            text.length < ReviewLength.Min
+            || text.length > ReviewLength.Max
+            || appStatus === AppStatus.Pending
+          }
           className="reviews__submit form__submit button"
           type="submit"
         >
