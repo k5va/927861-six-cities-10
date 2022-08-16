@@ -5,10 +5,13 @@ import {Provider} from 'react-redux';
 import {configureMockStore} from '@jedmao/redux-mock-store';
 import {State} from '../../types';
 import {mockOffer} from '../../mocks';
+import {AppStatus, NameSpace} from '../../const';
 
 const mockStore = configureMockStore<State>();
 const offer = mockOffer();
-const store = mockStore();
+const store = mockStore({
+  [NameSpace.Data]: {appStatus: AppStatus.Ready}
+});
 
 describe('Component: ReviewsForm', () => {
   it('should render correctly', () => {
@@ -32,6 +35,7 @@ describe('Component: ReviewsForm', () => {
       </Provider>
     );
 
+    (screen.getByRole('button') as HTMLButtonElement).disabled = false;
     await userEvent.click(screen.getByRole('button'));
     expect(store.dispatch).toBeCalled();
   });

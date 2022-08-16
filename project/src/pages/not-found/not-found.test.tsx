@@ -1,7 +1,7 @@
 import {render, screen} from '@testing-library/react';
 import {Provider} from 'react-redux';
 import {configureMockStore} from '@jedmao/redux-mock-store';
-import {AppRoute} from '../../const';
+import {AppRoute, AuthStatus, NameSpace} from '../../const';
 import {State} from '../../types';
 import thunk, {ThunkDispatch} from 'redux-thunk';
 import {api} from '../../api';
@@ -22,7 +22,10 @@ const mockStore = configureMockStore<
 
 describe('NotFound page test', () => {
   it('should render correctly when redirected to false page', () => {
-    const store = mockStore();
+    const store = mockStore({
+      [NameSpace.User]: {authStatus: AuthStatus.Auth},
+      [NameSpace.Data]: {offers: []}
+    });
 
     const fakeApp = (
       <Provider store={store}>
