@@ -11,6 +11,7 @@ const DEFAULT_TEXT = '';
 function ReviewsForm({offerId}: ReviewsFormProps): JSX.Element {
   const [text, setText] = useState(DEFAULT_TEXT);
   const [currentRate, setRate] = useState(DEFAULT_RATE);
+  const [wasSubmitted, setWasSubmitted] = useState(false);
   const dispatch = useAppDispatch();
   const appStatus = useAppSelector(getAppStatus);
 
@@ -25,14 +26,16 @@ function ReviewsForm({offerId}: ReviewsFormProps): JSX.Element {
     }
   };
 
-  if (appStatus === AppStatus.Done) { // clear form fields
+  if (appStatus === AppStatus.Ready && wasSubmitted) { // clear form fields
     resetForm();
+    setWasSubmitted(false);
   }
 
   return (
     <form
       onSubmit={(evt) => {
         evt.preventDefault();
+        setWasSubmitted(true);
         dispatch(postReview({offerId: offerId, comment: text, rating: currentRate}));
       }}
       className="reviews__form form" action="#" method="post"
