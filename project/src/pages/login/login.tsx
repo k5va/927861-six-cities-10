@@ -52,7 +52,7 @@ function Login(): JSX.Element {
                   <label className="visually-hidden">Password</label>
                   <input
                     value={password}
-                    pattern="^(?=.*\d)(?=.*\w)([\w\d]+)$"
+                    pattern="^(?=.*[0-9])(?=.*[a-zA-Z])([a-zA-Z0-9]+)$"
                     onChange={({target}) => setPassword(target.value)}
                     className="login__input form__input" type="password" name="password"
                     placeholder="Password" required
