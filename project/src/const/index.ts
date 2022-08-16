@@ -12,3 +12,4 @@ export {default as FavoritesOperation} from './favorites-operation/favorites-ope
 export {default as ApiRoute} from './api-route/api-route';
 export {default as MAX_OFFER_IMAGES_NUM} from './max-offer-images-num/max-offer-images-num';
 export {default as ReviewLength} from './review-length/review-length';
+export {default as OfferTypeDisplay} from './offer-type-display/offer-type-display';

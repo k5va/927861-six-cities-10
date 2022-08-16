@@ -1,5 +1,5 @@
 import {useParams} from 'react-router-dom';
-import {AuthStatus, MAX_OFFER_IMAGES_NUM, OfferCardMode} from '../../const';
+import {AuthStatus, MAX_OFFER_IMAGES_NUM, OfferCardMode, OfferTypeDisplay} from '../../const';
 import {Header, Map, OffersList, ReviewsForm,
   ReviewsList, SVGSymbols, Rating, FavoritesButton} from '../../components';
 import {useEffect} from 'react';
@@ -71,7 +71,7 @@ function Room(): JSX.Element | null {
                 </div>
                 <ul className="property__features">
                   <li className="property__feature property__feature--entire">
-                    {type}
+                    {OfferTypeDisplay[type]}
                   </li>
                   <li className="property__feature property__feature--bedrooms">
                     {bedrooms} Bedrooms
