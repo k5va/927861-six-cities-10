@@ -3,13 +3,15 @@ import {Link, useNavigate} from 'react-router-dom';
 import {SVGSymbols} from '../../components';
 import {AppRoute} from '../../const';
 import {useAppDispatch} from '../../hooks';
-import {login} from '../../store';
+import {login, setCity} from '../../store';
+import {getRandomCity} from '../../utils';
 
 function Login(): JSX.Element {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const randomCity = getRandomCity();
 
   return (
     <>
@@ -63,9 +65,13 @@ function Login(): JSX.Element {
             </section>
             <section className="locations locations--login locations--current">
               <div className="locations__item">
-                <a className="locations__item-link" href="/">
-                  <span>Amsterdam</span>
-                </a>
+                <Link
+                  to={AppRoute.Root}
+                  onClick={() => dispatch(setCity(randomCity))}
+                  className="locations__item-link"
+                >
+                  <span>{randomCity}</span>
+                </Link>
               </div>
             </section>
           </div>
