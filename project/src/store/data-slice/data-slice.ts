@@ -21,9 +21,6 @@ export const dataSlice = createSlice({
       state.nearOffers = [];
       state.reviews = [];
     },
-    setAppStatus: (state, action) => {
-      state.appStatus = action.payload;
-    }
   },
   extraReducers(builder) {
     builder
@@ -102,5 +99,5 @@ export const dataSlice = createSlice({
   }
 });
 
-export const {resetCurrentOffer, setAppStatus} = dataSlice.actions;
+export const {resetCurrentOffer} = dataSlice.actions;
 
