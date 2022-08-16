@@ -1,15 +1,15 @@
 import {Favorites, Login, Main, NotFound, Room} from '../../pages';
 import {Route, Routes} from 'react-router-dom';
 import {AppRoute, AuthStatus} from '../../const';
-import {PrivateRoute, Spinner} from '../../components';
+import {PrivateRoute} from '../../components';
 import {useAppSelector} from '../../hooks';
 import {getAuthStatus} from '../../store/selectors';
 
-function App(): JSX.Element {
+function App(): JSX.Element | null {
   const authStatus = useAppSelector(getAuthStatus);
 
   if (authStatus === AuthStatus.Unknown) {
-    return <Spinner />;
+    return null;
   }
 
   return (
