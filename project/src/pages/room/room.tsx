@@ -1,17 +1,16 @@
 import {useParams} from 'react-router-dom';
-import {AppStatus, AuthStatus, MAX_OFFER_IMAGES_NUM, OfferCardMode} from '../../const';
+import {AuthStatus, MAX_OFFER_IMAGES_NUM, OfferCardMode} from '../../const';
 import {Header, Map, OffersList, ReviewsForm,
-  ReviewsList, SVGSymbols, Rating, Spinner, FavoritesButton} from '../../components';
+  ReviewsList, SVGSymbols, Rating, FavoritesButton} from '../../components';
 import {useEffect} from 'react';
 import {useAppDispatch, useAppSelector} from '../../hooks';
-import {getAppStatus, getAuthStatus, getCurrentOffer, getNearOffers} from '../../store/selectors';
+import {getAuthStatus, getCurrentOffer, getNearOffers} from '../../store/selectors';
 import {loadCurrentOffer, resetCurrentOffer} from '../../store';
 
-function Room(): JSX.Element {
+function Room(): JSX.Element | null {
   const {id} = useParams();
   const offerId = Number(id);
   const authStatus = useAppSelector(getAuthStatus);
-  const appStatus = useAppSelector(getAppStatus);
   const currentOffer = useAppSelector(getCurrentOffer);
   const nearOffers = useAppSelector(getNearOffers);
   const dispatch = useAppDispatch();
@@ -24,8 +23,8 @@ function Room(): JSX.Element {
     };
   }, [offerId, dispatch]);
 
-  if (!currentOffer || appStatus === AppStatus.Pending) {
-    return <Spinner />;
+  if (!currentOffer) {
+    return null;
   }
 
   const {title, isFavorite, isPremium, rating, type, maxAdults, city,

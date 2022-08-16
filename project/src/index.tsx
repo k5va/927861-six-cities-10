@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import {Provider} from 'react-redux';
-import {App, HistoryRouter} from './components';
+import {App, HistoryRouter, Spinner} from './components';
 import {loadOffers, store} from './store';
 import {checkLogin} from './store';
 import {ToastContainer} from 'react-toastify';
@@ -20,6 +20,7 @@ root.render(
     <Provider store={store}>
       <HistoryRouter history={browserHistory}>
         <ToastContainer />
+        <Spinner />
         <App />
       </HistoryRouter>
     </Provider>

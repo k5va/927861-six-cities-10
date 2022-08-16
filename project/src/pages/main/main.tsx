@@ -1,15 +1,6 @@
-import {Header, SVGSymbols, CitiesList, CityOffers, Spinner} from '../../components';
-import {AppStatus} from '../../const';
-import {useAppSelector} from '../../hooks';
-import {getAppStatus} from '../../store/selectors';
+import {Header, SVGSymbols, CitiesList, CityOffers} from '../../components';
 
 function Main(): JSX.Element {
-  const appStatus = useAppSelector(getAppStatus);
-
-  if (appStatus === AppStatus.Pending) {
-    return <Spinner />;
-  }
-
   return (
     <>
       <SVGSymbols />

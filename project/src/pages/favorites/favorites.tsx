@@ -1,16 +1,15 @@
 import {useEffect} from 'react';
 import {Link} from 'react-router-dom';
-import {Header, NoFavorites, OffersList, Spinner, SVGSymbols} from '../../components';
-import {AppRoute, AppStatus, OfferCardMode} from '../../const';
+import {Header, NoFavorites, OffersList, SVGSymbols} from '../../components';
+import {AppRoute, OfferCardMode} from '../../const';
 import {useAppDispatch, useAppSelector} from '../../hooks';
 import {loadFavorites} from '../../store/actions';
-import {getAppStatus, getFavorites} from '../../store/selectors';
+import {getFavorites} from '../../store/selectors';
 import {Offer} from '../../types';
 import {createOffersCityMap} from '../../utils';
 
 function Favorites(): JSX.Element {
   const favorites = useAppSelector(getFavorites);
-  const appStatus = useAppSelector(getAppStatus);
   const dispatch = useAppDispatch();
   const offersCityMap = createOffersCityMap(favorites);
 
@@ -18,10 +17,6 @@ function Favorites(): JSX.Element {
   useEffect(() => {
     dispatch(loadFavorites());
   }, [dispatch]);
-
-  if (appStatus === AppStatus.Pending) {
-    return <Spinner />;
-  }
 
   return (
     <>
