@@ -48,23 +48,27 @@ export const dataSlice = createSlice({
         state.reviews = reviews;
         state.appStatus = AppStatus.Ready;
       })
-      .addCase(postReview.rejected, (state, action) => {
+      .addCase(postReview.pending, (state) => {
+        state.appStatus = AppStatus.Pending;
+      })
+      .addCase(postReview.rejected, (state) => {
         state.appStatus = AppStatus.Error;
       })
       .addCase(postReview.fulfilled, (state, action) => {
         state.reviews = action.payload;
+        state.appStatus = AppStatus.Ready;
       })
-      .addCase(loadFavorites.pending, (state, action) => {
+      .addCase(loadFavorites.pending, (state) => {
         state.appStatus = AppStatus.Pending;
       })
-      .addCase(loadFavorites.rejected, (state, action) => {
+      .addCase(loadFavorites.rejected, (state) => {
         state.appStatus = AppStatus.Error;
       })
       .addCase(loadFavorites.fulfilled, (state, action) => {
         state.favorites = action.payload;
         state.appStatus = AppStatus.Ready;
       })
-      .addCase(updateFavorites.rejected, (state, action) => {
+      .addCase(updateFavorites.rejected, (state) => {
         state.appStatus = AppStatus.Error;
       })
       .addCase(updateFavorites.fulfilled, (state, {payload: updatedOffer}) => {

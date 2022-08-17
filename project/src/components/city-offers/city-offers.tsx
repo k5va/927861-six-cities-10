@@ -6,7 +6,7 @@ import {findCityOffers, sortOffers} from '../../utils';
 import {useAppSelector} from '../../hooks';
 import {getAppStatus, getCity, getOffers} from '../../store/selectors';
 
-function CityOffers(): JSX.Element {
+function CityOffers(): JSX.Element | null {
   const cityName = useAppSelector(getCity);
   const offers = useAppSelector(getOffers);
   const appStatus = useAppSelector(getAppStatus);
@@ -24,8 +24,8 @@ function CityOffers(): JSX.Element {
     [cityName, offers, activeSorting]
   );
 
-  if (appStatus === AppStatus.Ready && filteredOffers.length === 0) {
-    return <NoOffers city={cityName} />;
+  if (filteredOffers.length === 0) {
+    return appStatus === AppStatus.Ready ? <NoOffers city={cityName} /> : null;
   }
 
   const city = filteredOffers[0].city;

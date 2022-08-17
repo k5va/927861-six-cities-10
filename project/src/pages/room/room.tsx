@@ -1,17 +1,16 @@
 import {useParams} from 'react-router-dom';
-import {AppStatus, AuthStatus, OfferCardMode} from '../../const';
+import {AuthStatus, MAX_OFFER_IMAGES_NUM, OfferCardMode, OfferTypeDisplay} from '../../const';
 import {Header, Map, OffersList, ReviewsForm,
-  ReviewsList, SVGSymbols, Rating, Spinner, FavoritesButton} from '../../components';
+  ReviewsList, SVGSymbols, Rating, FavoritesButton} from '../../components';
 import {useEffect} from 'react';
 import {useAppDispatch, useAppSelector} from '../../hooks';
-import {getAppStatus, getAuthStatus, getCurrentOffer, getNearOffers} from '../../store/selectors';
+import {getAuthStatus, getCurrentOffer, getNearOffers} from '../../store/selectors';
 import {loadCurrentOffer, resetCurrentOffer} from '../../store';
 
-function Room(): JSX.Element {
+function Room(): JSX.Element | null {
   const {id} = useParams();
   const offerId = Number(id);
   const authStatus = useAppSelector(getAuthStatus);
-  const appStatus = useAppSelector(getAppStatus);
   const currentOffer = useAppSelector(getCurrentOffer);
   const nearOffers = useAppSelector(getNearOffers);
   const dispatch = useAppDispatch();
@@ -24,8 +23,8 @@ function Room(): JSX.Element {
     };
   }, [offerId, dispatch]);
 
-  if (!currentOffer || appStatus === AppStatus.Pending) {
-    return <Spinner />;
+  if (!currentOffer) {
+    return null;
   }
 
   const {title, isFavorite, isPremium, rating, type, maxAdults, city,
@@ -40,7 +39,7 @@ function Room(): JSX.Element {
           <section className="property">
             <div className="property__gallery-container container">
               <div className="property__gallery">
-                {images.map((src) =>
+                {images.slice(0, MAX_OFFER_IMAGES_NUM).map((src) =>
                   (
                     <div key={src} className="property__image-wrapper">
                       <img className="property__image" src={src} alt={title} />
@@ -72,7 +71,7 @@ function Room(): JSX.Element {
                 </div>
                 <ul className="property__features">
                   <li className="property__feature property__feature--entire">
-                    {type}
+                    {OfferTypeDisplay[type]}
                   </li>
                   <li className="property__feature property__feature--bedrooms">
                     {bedrooms} Bedrooms

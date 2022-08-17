@@ -2,6 +2,7 @@ import {Link} from 'react-router-dom';
 import {Rating, FavoritesButton} from '../../components';
 import {OfferCardProps} from './types';
 import {memo} from 'react';
+import {OfferTypeDisplay} from '../../const';
 
 function OfferCard({offer, mode, onSelected}: OfferCardProps): JSX.Element {
   const {id, isFavorite, isPremium, previewImage, title, price, type, rating} = offer;
@@ -42,7 +43,7 @@ function OfferCard({offer, mode, onSelected}: OfferCardProps): JSX.Element {
         <h2 className="place-card__name">
           <Link to={`/offer/${offer.id}`}>{title}</Link>
         </h2>
-        <p className="place-card__type">{type}</p>
+        <p className="place-card__type">{OfferTypeDisplay[type]}</p>
       </div>
     </article>
   );

@@ -4,7 +4,7 @@ import {Provider} from 'react-redux';
 import {configureMockStore} from '@jedmao/redux-mock-store';
 import {State} from '../../types';
 import {mockReviews} from '../../mocks';
-import { NameSpace } from '../../const';
+import {NameSpace} from '../../const';
 
 const mockStore = configureMockStore<State>();
 const reviews = mockReviews();

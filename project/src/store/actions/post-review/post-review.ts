@@ -1,6 +1,6 @@
 import {createAsyncThunk} from '@reduxjs/toolkit';
 import {AxiosInstance} from 'axios';
-import { ApiRoute } from '../../../const';
+import {ApiRoute} from '../../../const';
 import {AppDispatch, JSONValue, Review, State} from '../../../types';
 import {parseReview} from '../../../utils';
 
@@ -26,7 +26,8 @@ const postReview = createAsyncThunk<
   async ({offerId, comment, rating}, {extra: api}) => {
     await api.post(`${ApiRoute.Reviews}/${offerId}`, {comment, rating});
     const {data} = await api.get<JSONValue[]>(`${ApiRoute.Reviews}/${offerId}`);
-    return data.map(parseReview);
+    const reviews = data.map(parseReview);
+    return reviews;
   },
 );
 
