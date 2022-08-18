@@ -10,7 +10,7 @@ function FavoritesButton({offerId, isFavorite, width, height, className}: Favori
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  const onFavoritesButtonClick = () => {
+  const favoritesButtonClickHandler = () => {
     if (authStatus !== AuthStatus.Auth) {
       navigate(AppRoute.Login);
       return;
@@ -21,7 +21,7 @@ function FavoritesButton({offerId, isFavorite, width, height, className}: Favori
 
   return (
     <button
-      onClick={onFavoritesButtonClick}
+      onClick={favoritesButtonClickHandler}
       className={`
         ${className}-button
         ${isFavorite ? `${className}-button--active` : ''}

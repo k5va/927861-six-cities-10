@@ -14,7 +14,7 @@ function CityOffers(): JSX.Element | null {
   const [activeOffer, setActiveOffer] = useState<Offer | null>(null);
   const [activeSorting, setActiveSorting] = useState(OffersSortingType.Popular);
 
-  const onActiveOfferChange = useCallback(
+  const activeOfferChangeHandler = useCallback(
     (isActive: boolean, offer: Offer) => setActiveOffer(isActive ? offer : null),
     []
   );
@@ -44,7 +44,7 @@ function CityOffers(): JSX.Element | null {
             <OffersList
               offers={filteredOffers}
               mode={OfferCardMode.Cities}
-              onActiveOfferChange={onActiveOfferChange}
+              onActiveOfferChange={activeOfferChangeHandler}
             />
           </div>
         </section>

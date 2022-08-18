@@ -15,8 +15,8 @@ function ReviewsForm({offerId}: ReviewsFormProps): JSX.Element {
   const dispatch = useAppDispatch();
   const appStatus = useAppSelector(getAppStatus);
 
-  const onRateChange = (evt: ChangeEvent<HTMLInputElement>) => setRate(Number(evt.target.value));
-  const onTextChange = (evt: ChangeEvent<HTMLTextAreaElement>) => setText(evt.target.value);
+  const rateChangeHandler = (evt: ChangeEvent<HTMLInputElement>) => setRate(Number(evt.target.value));
+  const textChangeHandler = (evt: ChangeEvent<HTMLTextAreaElement>) => setText(evt.target.value);
   const resetForm = () => {
     if (text !== DEFAULT_TEXT) {
       setText(DEFAULT_TEXT);
@@ -45,7 +45,7 @@ function ReviewsForm({offerId}: ReviewsFormProps): JSX.Element {
         {[...ReviewRate.entries()].map(([title, rate]) => (
           <React.Fragment key={rate}>
             <input
-              onChange={onRateChange}
+              onChange={rateChangeHandler}
               checked={currentRate === rate}
               value={rate}
               id={`${rate}-stars`}
@@ -65,7 +65,7 @@ function ReviewsForm({offerId}: ReviewsFormProps): JSX.Element {
       </div>
       <textarea
         value={text}
-        onChange={onTextChange}
+        onChange={textChangeHandler}
         minLength={ReviewLength.Min}
         maxLength={ReviewLength.Max}
         disabled={appStatus === AppStatus.Pending}
