@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import {useRef, useState} from 'react';
 import {Link, useNavigate} from 'react-router-dom';
 import {SVGSymbols} from '../../components';
 import {AppRoute} from '../../const';
@@ -11,7 +11,7 @@ function Login(): JSX.Element {
   const [password, setPassword] = useState('');
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const randomCity = getRandomCity();
+  const randomCity = useRef(getRandomCity());
 
   return (
     <>
@@ -67,10 +67,10 @@ function Login(): JSX.Element {
               <div className="locations__item">
                 <Link
                   to={AppRoute.Root}
-                  onClick={() => dispatch(setCity(randomCity))}
+                  onClick={() => dispatch(setCity(randomCity.current))}
                   className="locations__item-link"
                 >
-                  <span>{randomCity}</span>
+                  <span>{randomCity.current}</span>
                 </Link>
               </div>
             </section>
